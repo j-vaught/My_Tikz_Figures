@@ -1,0 +1,58 @@
+% Source: Code/CommonSenseCarolina/latex/usc-cost-pressure.tex
+% Description: In-state tuition has been frozen since 2019--20. The shaded region marks the freeze period \citep{Grenier2024Tuition, CollegeTuitionCompare2025
+
+\documentclass[border=4pt]{standalone}
+\usepackage{graphicx}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{xcolor}
+\pgfplotsset{compat=1.18}
+
+\definecolor{Garnet}{HTML}{73000A}
+\definecolor{Atlantic}{HTML}{466A9F}
+\definecolor{Congaree}{HTML}{1F414D}
+\definecolor{Rose}{HTML}{CC2E40}
+\definecolor{Black90}{HTML}{363636}
+\definecolor{Black50}{HTML}{A2A2A2}
+\definecolor{Black10}{HTML}{ECECEC}
+
+
+\begin{document}
+\begin{tikzpicture}
+\begin{axis}[
+    width=\textwidth,
+    height=7cm,
+    xlabel={Academic Year},
+    ylabel={Tuition + Fees (\$)},
+    xlabel style={font=\small},
+    ylabel style={font=\small},
+    xticklabel style={font=\footnotesize, rotate=45, anchor=east},
+    yticklabel style={font=\small},
+    symbolic x coords={2015-16,2016-17,2017-18,2018-19,2019-20,2020-21,2021-22,2022-23,2023-24,2024-25},
+    xtick=data,
+    ymin=10000, ymax=16000,
+    ymajorgrids=true,
+    grid style={color=Black10},
+    axis line style={color=Black90},
+    tick style={color=Black90},
+    legend style={at={(0.02,0.98)}, anchor=north west, font=\small, draw=Black50},
+    title={\textbf{In-State Tuition + Fees}},
+    title style={font=\normalsize, at={(0.5,1.05)}},
+]
+\addplot[color=Congaree, thick, mark=square*, mark size=2] coordinates {
+    (2015-16,11482) (2016-17,11454) (2017-18,11862) (2018-19,12616)
+    (2019-20,12688) (2020-21,12688) (2021-22,12688) (2022-23,12688)
+    (2023-24,12688) (2024-25,12688)
+};
+\addplot[color=Black50, thick, dashed, mark=none] coordinates {
+    (2015-16,11482) (2016-17,11803) (2017-18,12134) (2018-19,12474)
+    (2019-20,12823) (2020-21,13182) (2021-22,13551) (2022-23,13930)
+    (2023-24,14320) (2024-25,14721)
+};
+\draw[fill=Black10, fill opacity=0.3, draw=none]
+    (axis cs:2019-20,10000) rectangle (axis cs:2024-25,16000);
+\node[font=\small\bfseries, color=Black90] at (axis cs:2021-22,15200) {Tuition Freeze};
+\legend{Actual USC Tuition, CPI Inflation Baseline}
+\end{axis}
+\end{tikzpicture}
+\end{document}

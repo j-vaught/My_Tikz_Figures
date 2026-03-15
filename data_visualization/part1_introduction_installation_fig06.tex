@@ -1,0 +1,112 @@
+% Source: graduate-coursework/Research/Intro_to_Agents/handouts/Part1_Introduction_Installation.tex
+
+\documentclass[border=4pt]{standalone}
+\usepackage{amsmath,amssymb}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{lmodern}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usetikzlibrary{shapes.geometric,arrows.meta,positioning,fit,backgrounds,calc}
+
+\definecolor{Garnet}{HTML}{73000A}
+\definecolor{DarkGarnet}{HTML}{570008}
+\definecolor{Rose}{HTML}{CC2E40}
+\definecolor{Atlantic}{HTML}{466A9F}
+\definecolor{Congaree}{HTML}{1F414D}
+\definecolor{Horseshoe}{HTML}{65780B}
+\definecolor{Grass}{HTML}{CED318}
+\definecolor{Honeycomb}{HTML}{A49137}
+\definecolor{Black90}{HTML}{363636}
+\definecolor{Black70}{HTML}{5C5C5C}
+\definecolor{Black50}{HTML}{A2A2A2}
+\definecolor{WarmGrey}{HTML}{676156}
+\definecolor{Sandstorm}{HTML}{FFF2E3}
+\definecolor{Azalea}{HTML}{844247}
+
+\tikzset{
+    % Sharp corners, no rounded edges
+    agentbox/.style={
+        rectangle,
+        draw=Garnet,
+        fill=white,
+        thick,
+        minimum width=4cm,
+        minimum height=1cm,
+        align=center,
+        font=\small
+    },
+    agentboxfill/.style={
+        rectangle,
+        draw=Garnet,
+        fill=Sandstorm,
+        thick,
+        minimum width=4cm,
+        minimum height=1cm,
+        align=center,
+        font=\small
+    },
+    toolbox/.style={
+        rectangle,
+        draw=Atlantic,
+        fill=white,
+        thick,
+        minimum width=2.5cm,
+        minimum height=0.8cm,
+        align=center,
+        font=\scriptsize
+    },
+    categorybox/.style={
+        rectangle,
+        draw=Congaree,
+        fill=Sandstorm,
+        thick,
+        minimum width=3.5cm,
+        minimum height=0.7cm,
+        align=center,
+        font=\small
+    },
+    arrow/.style={
+        ->,
+        >=stealth,
+        thick,
+        color=Garnet
+    },
+    dashedarrow/.style={
+        ->,
+        >=stealth,
+        dashed,
+        thick,
+        color=Atlantic
+    }
+}
+
+\begin{document}
+\begin{tikzpicture}[
+                    node distance=0.6cm,
+                    scale=0.85,
+                    transform shape,
+                    plugin/.style={agentbox, minimum width=3.5cm, minimum height=0.8cm}
+                ]
+                    \node[plugin, fill=Sandstorm] (copilot) {
+                        \textbf{GitHub Copilot}\\
+                        \scriptsize Most popular, \$10/mo
+                    };
+                    \node[plugin, below=of copilot] (cline) {
+                        \textbf{Cline}\\
+                        \scriptsize Strong agentic, free
+                    };
+                    \node[plugin, below=of cline] (continue) {
+                        \textbf{Continue}\\
+                        \scriptsize Most extensible
+                    };
+                    \node[plugin, below=of continue] (amazonq) {
+                        \textbf{Amazon Q}\\
+                        \scriptsize AWS integration
+                    };
+
+                    \draw[arrow] (copilot) -- (cline);
+                    \draw[arrow] (cline) -- (continue);
+                    \draw[arrow] (continue) -- (amazonq);
+                \end{tikzpicture}
+\end{document}

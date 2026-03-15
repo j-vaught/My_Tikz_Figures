@@ -1,0 +1,58 @@
+% Source: Code/yolo-ablation-bench/report.tex
+% Description: Larger models degrade faster with resolution. YOLOv8l hits OOM at 640px on 8GB Jetson.
+
+\documentclass[border=4pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{helvet}
+\usepackage{lmodern}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\usepackage{tikz}
+\usepackage[dvipsnames,table]{xcolor}
+\pgfplotsset{compat=1.18}
+
+\definecolor{garnet}{HTML}{73000A}
+\definecolor{midgray}{gray}{0.35}
+\definecolor{lightgray}{gray}{0.8}
+
+
+\newcommand{\headline}[1]{\textcolor{garnet}{\Large\bfseries #1}}
+\newcommand{\subhead}[1]{\textcolor{midgray}{\large #1}}
+\newcommand{\bulletline}[1]{\noindent\textcolor{midgray}{\textbullet}\ #1\\[-0.2em]}
+
+\begin{document}
+\begin{tikzpicture}
+    \begin{axis}[
+      width=\textwidth,
+      height=7cm,
+      xlabel={Input Resolution (px)},
+      ylabel={Frames per Second},
+      xmin=140, xmax=660,
+      ymin=14, ymax=32,
+      xtick={160,320,480,640},
+      legend pos=north east
+    ]
+      % YOLOv8n
+      \addplot+[thick, mark=square*, color=garnet] coordinates {
+        (160, 26.84) (320, 25.24) (480, 23.61) (640, 22.01)
+      };
+      \addlegendentry{YOLOv8n}
+      % YOLOv8s
+      \addplot+[thick, mark=triangle*, color=blue!70] coordinates {
+        (160, 26.17) (320, 24.47) (480, 22.46) (640, 19.91)
+      };
+      \addlegendentry{YOLOv8s}
+      % YOLOv8m
+      \addplot+[thick, mark=diamond*, color=orange!80!black] coordinates {
+        (160, 26.12) (320, 23.78) (480, 20.73) (640, 16.37)
+      };
+      \addlegendentry{YOLOv8m}
+      % YOLOv8l (no 640px - OOM)
+      \addplot+[thick, mark=o, color=black!60, dashed] coordinates {
+        (160, 28.73) (320, 25.59) (480, 20.10)
+      };
+      \addlegendentry{YOLOv8l}
+    \end{axis}
+  \end{tikzpicture}
+\end{document}

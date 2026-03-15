@@ -1,0 +1,234 @@
+% Source: graduate-coursework/Sp26/CSCE763/Course_Assignments/Paper_Reading/slides/test_lidar.tex
+\documentclass[border=5pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,intersections,calc}
+
+\definecolor{garnet}{HTML}{73000A}
+\definecolor{atlantic}{HTML}{466A9F}
+\definecolor{horseshoe}{HTML}{65780B}
+\definecolor{bk70}{HTML}{5C5C5C}
+\definecolor{bk30}{HTML}{C7C7C7}
+\definecolor{warmgrey}{HTML}{676156}
+
+\def\PARAM{0.5}
+\begin{document}
+\begin{tikzpicture}[scale=1.0]
+
+  \pgfmathsetmacro{\beamangle}{\PARAM}  % tikzgif sweeps this
+  \def\beamlen{5.5}
+
+  % Bounding box — adjust these to control size and centering
+  \useasboundingbox (-1.5,-3) rectangle (6.5,3);
+  \draw[horseshoe, thick] (-1.5,-3) rectangle (6.5,3);
+
+  % Step 1: Draw objects — spread around the LiDAR, all within box bounds
+  \draw[thick, warmgrey, fill=warmgrey!25] (3.5,1.5) circle (0.4);          % right-upper
+  \draw[thick, warmgrey, fill=warmgrey!25] (4.5,-0.5) +(-0.7,-0.3) rectangle +(0.7,0.3); % right-mid
+  \draw[thick, warmgrey, fill=warmgrey!25]
+    (2.5,-1.8) +(-0.4,0) -- +(0,0.6) -- +(0.4,0) -- cycle;                % below-right
+  \draw[thick, warmgrey, fill=warmgrey!25] (5.0,2.2) circle (0.3);          % far right-upper
+  \draw[thick, warmgrey, fill=warmgrey!25] (3.0,-2.3) +(-0.5,-0.2) rectangle +(0.5,0.2); % below
+  \draw[thick, warmgrey, fill=warmgrey!25]
+    (-0.5,2.0) +(-0.3,0) -- +(0,0.5) -- +(0.3,0) -- cycle;                % above LiDAR
+  \draw[thick, warmgrey, fill=warmgrey!25] (1.5,-2.0) circle (0.35);        % below-left
+
+  % Step 2: Invisible paths for intersection detection
+  % Beam extends far enough to always hit the box wall
+  \path[name path=beam] (0,0) -- (\beamangle:10);
+  \path[name path=box] (-1.5,-3) rectangle (6.5,3);
+  \path[name path=circ] (3.5,1.5) circle (0.4);
+  \path[name path=rect] (4.5,-0.5) +(-0.7,-0.3) rectangle +(0.7,0.3);
+  \path[name path=tri]
+    (2.5,-1.8) +(-0.4,0) -- +(0,0.6) -- +(0.4,0) -- cycle;
+  \path[name path=circ2] (5.0,2.2) circle (0.3);
+  \path[name path=rect2] (3.0,-2.3) +(-0.5,-0.2) rectangle +(0.5,0.2);
+  \path[name path=tri2]
+    (-0.5,2.0) +(-0.3,0) -- +(0,0.5) -- +(0.3,0) -- cycle;
+  \path[name path=circ3] (1.5,-2.0) circle (0.35);
+
+  % Step 3: Find closest intersection across all objects
+  \def\mindist{999}
+  \def\hitx{0}
+  \def\hity{0}
+  \def\gothit{0}
+
+  % Check circle
+  \path[name intersections={of=beam and circ, total=\t}]
+    \pgfextra{
+      \ifnum\t>0
+        \foreach \i in {1,...,\t} {
+          \pgfpointanchor{intersection-\i}{center}
+          \pgfgetlastxy{\ix}{\iy}
+          \pgfmathparse{veclen(\ix,\iy)}
+          \let\d\pgfmathresult
+          \pgfmathparse{\d < \mindist ? 1 : 0}
+          \ifdim\pgfmathresult pt>0.5pt
+            \global\edef\mindist{\d}
+            \global\edef\hitx{\ix}
+            \global\edef\hity{\iy}
+            \global\def\gothit{1}
+          \fi
+        }
+      \fi
+    };
+
+  % Check rectangle
+  \path[name intersections={of=beam and rect, total=\t}]
+    \pgfextra{
+      \ifnum\t>0
+        \foreach \i in {1,...,\t} {
+          \pgfpointanchor{intersection-\i}{center}
+          \pgfgetlastxy{\ix}{\iy}
+          \pgfmathparse{veclen(\ix,\iy)}
+          \let\d\pgfmathresult
+          \pgfmathparse{\d < \mindist ? 1 : 0}
+          \ifdim\pgfmathresult pt>0.5pt
+            \global\edef\mindist{\d}
+            \global\edef\hitx{\ix}
+            \global\edef\hity{\iy}
+            \global\def\gothit{1}
+          \fi
+        }
+      \fi
+    };
+
+  % Check triangle
+  \path[name intersections={of=beam and tri, total=\t}]
+    \pgfextra{
+      \ifnum\t>0
+        \foreach \i in {1,...,\t} {
+          \pgfpointanchor{intersection-\i}{center}
+          \pgfgetlastxy{\ix}{\iy}
+          \pgfmathparse{veclen(\ix,\iy)}
+          \let\d\pgfmathresult
+          \pgfmathparse{\d < \mindist ? 1 : 0}
+          \ifdim\pgfmathresult pt>0.5pt
+            \global\edef\mindist{\d}
+            \global\edef\hitx{\ix}
+            \global\edef\hity{\iy}
+            \global\def\gothit{1}
+          \fi
+        }
+      \fi
+    };
+
+  % Check circle2
+  \path[name intersections={of=beam and circ2, total=\t}]
+    \pgfextra{
+      \ifnum\t>0
+        \foreach \i in {1,...,\t} {
+          \pgfpointanchor{intersection-\i}{center}
+          \pgfgetlastxy{\ix}{\iy}
+          \pgfmathparse{veclen(\ix,\iy)}
+          \let\d\pgfmathresult
+          \pgfmathparse{\d < \mindist ? 1 : 0}
+          \ifdim\pgfmathresult pt>0.5pt
+            \global\edef\mindist{\d}
+            \global\edef\hitx{\ix}
+            \global\edef\hity{\iy}
+            \global\def\gothit{1}
+          \fi
+        }
+      \fi
+    };
+
+  % Check rect2
+  \path[name intersections={of=beam and rect2, total=\t}]
+    \pgfextra{
+      \ifnum\t>0
+        \foreach \i in {1,...,\t} {
+          \pgfpointanchor{intersection-\i}{center}
+          \pgfgetlastxy{\ix}{\iy}
+          \pgfmathparse{veclen(\ix,\iy)}
+          \let\d\pgfmathresult
+          \pgfmathparse{\d < \mindist ? 1 : 0}
+          \ifdim\pgfmathresult pt>0.5pt
+            \global\edef\mindist{\d}
+            \global\edef\hitx{\ix}
+            \global\edef\hity{\iy}
+            \global\def\gothit{1}
+          \fi
+        }
+      \fi
+    };
+
+  % Check tri2
+  \path[name intersections={of=beam and tri2, total=\t}]
+    \pgfextra{
+      \ifnum\t>0
+        \foreach \i in {1,...,\t} {
+          \pgfpointanchor{intersection-\i}{center}
+          \pgfgetlastxy{\ix}{\iy}
+          \pgfmathparse{veclen(\ix,\iy)}
+          \let\d\pgfmathresult
+          \pgfmathparse{\d < \mindist ? 1 : 0}
+          \ifdim\pgfmathresult pt>0.5pt
+            \global\edef\mindist{\d}
+            \global\edef\hitx{\ix}
+            \global\edef\hity{\iy}
+            \global\def\gothit{1}
+          \fi
+        }
+      \fi
+    };
+
+  % Check circ3
+  \path[name intersections={of=beam and circ3, total=\t}]
+    \pgfextra{
+      \ifnum\t>0
+        \foreach \i in {1,...,\t} {
+          \pgfpointanchor{intersection-\i}{center}
+          \pgfgetlastxy{\ix}{\iy}
+          \pgfmathparse{veclen(\ix,\iy)}
+          \let\d\pgfmathresult
+          \pgfmathparse{\d < \mindist ? 1 : 0}
+          \ifdim\pgfmathresult pt>0.5pt
+            \global\edef\mindist{\d}
+            \global\edef\hitx{\ix}
+            \global\edef\hity{\iy}
+            \global\def\gothit{1}
+          \fi
+        }
+      \fi
+    };
+
+  % Find where beam hits the bounding box wall
+  \def\wallx{0}
+  \def\wally{0}
+  \path[name intersections={of=beam and box, total=\tw}]
+    \pgfextra{
+      \def\walldist{999}
+      \ifnum\tw>0
+        \foreach \i in {1,...,\tw} {
+          \pgfpointanchor{intersection-\i}{center}
+          \pgfgetlastxy{\ix}{\iy}
+          \pgfmathparse{veclen(\ix,\iy)}
+          \let\d\pgfmathresult
+          \pgfmathparse{\d < \walldist ? 1 : 0}
+          \ifdim\pgfmathresult pt>0.5pt
+            \global\edef\walldist{\d}
+            \global\edef\wallx{\ix}
+            \global\edef\wally{\iy}
+          \fi
+        }
+      \fi
+    };
+
+  % Step 4: Draw beam
+  % Hit object -> garnet line from L to object, blue dot on object
+  % Miss all  -> green line from L to wall, blue dot on wall
+  \ifnum\gothit=1
+    \draw[thick, garnet] (0,0) -- (\hitx, \hity);
+    \fill[atlantic] (\hitx, \hity) circle (0.1);
+  \else
+    \draw[thick, horseshoe] (0,0) -- (\wallx, \wally);
+    \fill[atlantic] (\wallx, \wally) circle (0.1);
+  \fi
+
+  % Step 5: LiDAR unit (on top)
+  \draw[very thick, atlantic, fill=white] (0,0) circle (0.5);
+  \node[font=\sffamily\bfseries, color=atlantic] at (0,0) {L};
+
+\end{tikzpicture}
+\end{document}

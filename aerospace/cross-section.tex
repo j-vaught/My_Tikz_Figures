@@ -1,0 +1,75 @@
+% Source: graduate-coursework/Prior_Semesters/Fa25/EMCH721/HW3/cross-section.tex
+
+\documentclass[border=4pt]{standalone}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{xcolor}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, decorations.pathmorphing, patterns, calc}
+
+\definecolor{USC_Garnet}{HTML}{73000A}
+\definecolor{USC_Sandstorm}{HTML}{FFF2E3}
+\definecolor{USC_Black90}{HTML}{565656}
+\definecolor{USC_Black10}{HTML}{ECECEC}
+\definecolor{USC_Honeycomb}{HTML}{65780B}
+
+\newcommand{\solutionframework}{%
+\subsection*{Solution Outline}
+\begin{stepbox}
+\textbf{Planned Steps}\\[0.5em]
+Outline your step-by-step approach here.
+\end{stepbox}
+\subsection*{MATLAB Implementation}
+\begin{codebox}
+Add MATLAB code or pseudocode here.
+\end{codebox}
+\subsection*{Results Summary}
+\begin{resultsbox}
+Summarize key intermediate and final results here.
+\end{resultsbox}
+}
+
+\begin{document}
+\providecolor{UofSCGarnet}{RGB}{115, 0, 10}
+\providecolor{UofSCBlack}{RGB}{0, 0, 0}
+\providecolor{UofSCAtlantic}{RGB}{70, 106, 159}
+\providecolor{UofSCLightGray}{RGB}{200, 200, 200}
+
+\newcommand{\CrossSectionDiagram}{%
+    \begin{tikzpicture}[scale=1.5, >=Latex]
+        \draw[thick, fill=UofSCLightGray] plot [smooth cycle, tension=0.6] coordinates {
+            (0,0)
+            (1.2, 0.6)
+            (3.6, 0.48)
+            (6,0)
+            (3.6, -0.3)
+            (1.2, -0.48)
+        };
+
+        \draw[dashed, UofSCBlack] (-0.2,0) -- (6.5,0) node[right] {Reference Chord Line};
+
+        \coordinate (Q) at (1.2,0);
+        \coordinate (C) at (2.4,0);
+        \coordinate (P) at (3.6,0);
+
+        \draw[<->, thick] ($(Q)+(0,1)$) -- ($(P)+(0,1)$) node[midway, fill=white] {$x_{QP}$};
+        \draw[dashed] (P) -- ($(P)+(0,1.2)$);
+        \draw[<->, thick] ($(P)+(0,0.75)$) -- ($(C)+(0,0.75)$) node[midway, fill=white] {$x_{CP}$};
+        \draw[dashed] (C) -- ($(C)+(0,0.8)$);
+
+        \fill[UofSCGarnet] (P) circle (2pt) node[below=7mm] {P};
+        \fill[UofSCBlack] (C) circle (2pt) node[below=7mm] {C};
+        \fill[UofSCAtlantic] (Q) circle (2pt) node[below=7mm] {Q};
+
+        \draw[->, ultra thick, UofSCAtlantic] (-2, 0) -- (-0.5, 0) node[above] {$U$};
+
+        \draw[->, ultra thick, UofSCAtlantic] (Q) -- ($(Q)+(0,1.5)$) node[right] {$L(U)$};
+
+        \draw[->, ultra thick, UofSCGarnet] ($(Q)+(-2,-0.4)$) arc (270:90:0.4) node[midway, above left] {$\theta(z,t)$};
+    \end{tikzpicture}%
+}
+
+\end{document}

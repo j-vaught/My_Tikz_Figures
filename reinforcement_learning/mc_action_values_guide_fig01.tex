@@ -1,0 +1,69 @@
+% Source: graduate-coursework/Sp26/CSCE775/course_notes/mc_action_values_guide.tex
+% Description: The $3\times 3$ gridworld with actions. Each non-terminal state has four actions. Blue arrows illustrate the action set from $S_5$.
+
+\documentclass[border=4pt]{standalone}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric, calc, decorations.pathreplacing}
+
+\definecolor{Garnet}{HTML}{73000a}
+\definecolor{SecondaryBlue}{HTML}{466A9F}
+\definecolor{SecondaryGreen}{HTML}{65780B}
+\definecolor{FlatRed}{HTML}{CC2E40}
+\definecolor{FlatDark}{HTML}{1F414D}
+\definecolor{FlatYellow}{HTML}{CED318}
+\definecolor{FlatGold}{HTML}{A49137}
+\definecolor{LightGray}{HTML}{F0F0F0}
+\definecolor{Rose}{HTML}{CC2E40}
+
+\renewcommand{\baselinestretch}{1.2}
+\newcommand{\vocab}[1]{\textbf{\textcolor{Garnet}{#1}}}
+\newcommand{\mathhighlight}[1]{\textcolor{SecondaryBlue}{#1}}
+
+\begin{document}
+\begin{tikzpicture}[
+    cell/.style={minimum size=2.2cm, draw=FlatDark, thick, font=\large},
+    goal/.style={cell, fill=Garnet!15, draw=Garnet, line width=1.5pt},
+    rlabel/.style={font=\small, FlatDark},
+    actarr/.style={-{Stealth[length=2.5mm]}, line width=1pt, SecondaryBlue}
+]
+% Row 1 (top): S1, S2, S3
+\node[cell] (s1) at (0, 4.4) {$S_1$};
+\node[cell] (s2) at (2.2, 4.4) {$S_2$};
+\node[cell] (s3) at (4.4, 4.4) {$S_3$};
+% Row 2: S4, S5, S6
+\node[cell] (s4) at (0, 2.2) {$S_4$};
+\node[cell] (s5) at (2.2, 2.2) {$S_5$};
+\node[cell] (s6) at (4.4, 2.2) {$S_6$};
+% Row 3 (bottom): S7, S8, S9
+\node[cell] (s7) at (0, 0) {$S_7$};
+\node[cell] (s8) at (2.2, 0) {$S_8$};
+\node[goal] (s9) at (4.4, 0) {\textcolor{Garnet}{$S_9$}};
+
+% Action arrows from S5 (example state)
+\draw[actarr] (s5.center) -- ([yshift=-3pt]s5.north) node[above=1pt, font=\scriptsize, SecondaryBlue] {$\uparrow$};
+\draw[actarr] (s5.center) -- ([yshift=3pt]s5.south) node[below=1pt, font=\scriptsize, SecondaryBlue] {$\downarrow$};
+\draw[actarr] (s5.center) -- ([xshift=3pt]s5.west) node[left=1pt, font=\scriptsize, SecondaryBlue] {$\leftarrow$};
+\draw[actarr] (s5.center) -- ([xshift=-3pt]s5.east) node[right=1pt, font=\scriptsize, SecondaryBlue] {$\rightarrow$};
+
+% Labels
+\node[rlabel, above=0.1cm of s1.north west, anchor=south west] {$R = -1$};
+\node[rlabel, below=0.3cm of s9] {\textcolor{Garnet}{\textbf{Goal:} $R = +10$}};
+
+% Legend
+\node[right=1.2cm of s3, anchor=west, font=\small, text width=4cm] {
+    \textbf{Actions from each state:}\\[2pt]
+    $\uparrow$ Up, $\downarrow$ Down\\
+    $\leftarrow$ Left, $\rightarrow$ Right\\[6pt]
+    \textcolor{SecondaryBlue}{Blue arrows} show the four\\
+    actions available from $S_5$.\\[6pt]
+    \textbf{Discount:} $\gamma = 0.9$
+};
+\end{tikzpicture}
+\end{document}

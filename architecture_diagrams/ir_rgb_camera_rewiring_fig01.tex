@@ -1,0 +1,143 @@
+% Source: graduate-coursework/Research/Papers/shared_figures/system_diagrams/IR_RGB_camera_rewiring.tex
+
+\documentclass[border=4pt]{standalone}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usetikzlibrary{arrows.meta, positioning, calc}
+
+\definecolor{UofSCGarnet}{RGB}{115, 0, 10}
+\definecolor{UofSCBlack}{RGB}{0, 0, 0}
+\definecolor{UofSCWhite}{RGB}{255, 255, 255}
+\definecolor{UofSC90Black}{RGB}{54, 54, 54}
+\definecolor{UofSC70Black}{RGB}{92, 92, 92}
+\definecolor{UofSC50Black}{RGB}{162, 162, 162}
+\definecolor{UofSC30Black}{RGB}{199, 199, 199}
+\definecolor{UofSC10Black}{RGB}{235, 235, 235}
+\definecolor{UofSCWarmGrey}{RGB}{103, 97, 86}
+\definecolor{UofSCSandstorm}{RGB}{255, 242, 227}
+\definecolor{UofSCRose}{RGB}{204, 46, 64}
+\definecolor{UofSCAtlantic}{RGB}{70, 106, 159}
+\definecolor{UofSCCongaree}{RGB}{31, 65, 77}
+\definecolor{UofSCHorseshoe}{RGB}{101, 120, 11}
+\definecolor{UofSCGrass}{RGB}{206, 211, 24}
+\definecolor{UofSCHoneycomb}{RGB}{164, 145, 55}
+\definecolor{UofSCDarkGarnet}{RGB}{87, 0, 8}
+\definecolor{UofSCAzalea}{RGB}{132, 66, 71}
+
+\tikzset{
+    % --- Node Styles ---
+    base box/.style = {
+        draw=UofSCDarkGarnet,
+        line width=1pt,
+        minimum width=3cm,
+        minimum height=1.5cm,
+        align=center,
+        font=\bfseries,
+        text=UofSCBlack
+    },
+    std box/.style = {
+        base box,
+        fill=UofSCSandstorm
+    },
+    opt box/.style = {
+        base box,
+        dashed,
+        fill=UofSC10Black
+    },
+    % --- Connector Styles ---
+    % Ethernet: garnet outlines with Atlantic labels
+    conn eth/.style = {
+        Latex-Latex,
+        very thick,
+        draw=UofSCAtlantic
+    },
+    eth label/.style = {
+        font=\small\ttfamily,
+        midway,
+        above,
+        text=UofSCAtlantic
+    },
+    % Power: garnet lines and labels
+    conn pwr/.style = {
+        -Latex,
+        very thick,
+        draw=UofSCGarnet
+    },
+    pwr label/.style = {
+        font=\small\ttfamily,
+        midway,
+        below,
+        text=UofSCGarnet
+    },
+    % --- Layout Configuration ---
+    node distance = 2.5cm and 2.5cm
+}
+
+\begin{document}
+\begin{tikzpicture}
+
+    % ==========================================
+    % GROUP 1: Legacy Configuration
+    % ==========================================
+    \begin{scope}[local bounding box=LegacyGroup]
+        
+        % 1. Main Component Nodes
+        \node[std box] (orinA) {Orin PC};
+        \node[std box, right=of orinA] (joyA) {Joystick Box};
+        \node[std box, right=of joyA] (pwrbox) {Power Box};
+        \node[std box, right=of pwrbox] (flirA) {FLIR Camera};
+
+        % 2. Ethernet Connections 
+        \draw[conn eth] (orinA)  -- node[eth label] {eth} (joyA);
+        \draw[conn eth] (joyA)   -- node[eth label] {eth} (pwrbox);
+        \draw[conn eth] (pwrbox) -- node[eth label] {eth} (flirA);
+
+        % 3. Power Inputs
+        \coordinate (powerRailA) at ($(orinA.west) + (-2cm, 0)$);
+
+        \node[anchor=east, text=UofSC90Black] (v120A) at (powerRailA |- orinA.west) {120V};
+        \node[anchor=east, below=1cm of v120A, text=UofSC90Black] (v5A) {5V};
+        \node[anchor=east, below=1cm of v5A, text=UofSC90Black]   (v12A) {12V};
+
+        % 4. Power Wiring
+        \draw[conn pwr] (v120A) -- (orinA);
+        \draw[conn pwr] (v5A)   -| (joyA.south);
+        \draw[conn pwr] (v12A)  -| (pwrbox.south);
+
+        % Special Power Link between Box and Camera
+        \draw[conn pwr] 
+            ([yshift=-0.5cm] pwrbox.east) -- node[pwr label]{pwr} 
+            ([yshift=-0.5cm] flirA.west);
+            
+    \end{scope}
+
+    % ==========================================
+    % GROUP 2: New Configuration
+    % ==========================================
+    \begin{scope}[yshift=-7cm, local bounding box=NewGroup]
+
+        % 1. Main Component Nodes
+        \node[std box] (orinB) {Orin PC};
+        \node[std box, right=4cm of orinB] (flirB) {FLIR Camera};
+        \node[opt box, above=1cm of flirB] (joyB) {Joystick Box\\(optional)};
+
+        % 2. Connections
+        \draw[conn eth] (orinB) -- node[eth label] {eth} (flirB);
+        
+        % Orin -> Joystick (Right Angle)
+        \draw[conn eth] (orinB.north) |- node[eth label, pos=0.75] {eth} (joyB.west);
+
+        % 3. Power Inputs
+        \coordinate (powerRailB) at ($(orinB.west) + (-2cm, 0)$);
+        
+        \node[anchor=east, text=UofSC90Black] (v120B) at (powerRailB |- orinB.west) {120V};
+        \node[anchor=east, below=1.5cm of v120B, text=UofSC90Black] (v12B) {12V};
+
+        % 4. Power Wiring
+        \draw[conn pwr] (v120B) -- (orinB);
+        \draw[conn pwr] (v12B)  -| (flirB.south);
+
+    \end{scope}
+
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,67 @@
+% Source: graduate-coursework/Sp26/CSCE763/Course_Assignments/HW2/HW2_CSCE_763.tex
+
+\documentclass[border=4pt]{standalone}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, patterns}
+
+\definecolor{USC_Garnet}{HTML}{73000A}
+\definecolor{USC_Sandstorm}{HTML}{FFF2E3}
+\definecolor{USC_Black90}{HTML}{363636}
+\definecolor{USC_Black70}{HTML}{5C5C5C}
+\definecolor{USC_Black50}{HTML}{A2A2A2}
+\definecolor{USC_Black10}{HTML}{ECECEC}
+\definecolor{USC_Honeycomb}{HTML}{65780B}
+\definecolor{USC_Atlantic}{HTML}{466A9F}
+\definecolor{USC_Congaree}{HTML}{1F414D}
+\definecolor{USC_Rose}{HTML}{CC2E40}
+\definecolor{outputbg}{RGB}{245,245,245}
+
+\begin{document}
+\begin{tikzpicture}[scale=1.0]
+
+    % === Figure (a): p_r(r) - triangle from (0,2) to (L-1,0) ===
+    \begin{scope}[shift={(0,0)}]
+        % Axes
+        \draw[->, thick] (0,0) -- (5,0) node[right] {$r$};
+        \draw[->, thick] (0,0) -- (0,4) node[above] {$p_r(r)$};
+
+        % Labels
+        \node[left] at (0,3) {2};
+        \node[below] at (0,0) {0};
+        \node[below] at (3.8,0) {$L\!-\!1$};
+
+        % Triangle PDF: line from (0,2) to (L-1, 0)
+        \draw[thick, USC_Garnet] (0,3) -- (3.8,0);
+
+        % Label
+        \node[below] at (1.9,-1) {(a)};
+    \end{scope}
+
+    % === Figure (b): p_z(z) - triangle from (0,0) to (L-1, 2) with dashed ===
+    \begin{scope}[shift={(8,0)}]
+        % Axes
+        \draw[->, thick] (0,0) -- (5,0) node[right] {$z$};
+        \draw[->, thick] (0,0) -- (0,4) node[above] {$p_z(z)$};
+
+        % Labels
+        \node[left] at (0,3) {2};
+        \node[below] at (0,0) {0};
+        \node[below] at (3.8,0) {$L\!-\!1$};
+
+        % Triangle PDF: line from (0,0) to (L-1, 2)
+        \draw[thick, USC_Garnet] (0,0) -- (3.8,3);
+
+        % Dashed lines showing the box extent
+        \draw[dashed, thick, USC_Garnet] (3.8,3) -- (3.8,0);
+        \draw[dashed, thick, USC_Garnet] (0,3) -- (3.8,3);
+
+        % Label
+        \node[below] at (1.9,-1) {(b)};
+    \end{scope}
+
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,88 @@
+% Source: graduate-coursework/Sp26/CSCE763/Course_Assignments/Paper_Reading/animations/anim4_rpnl.tex
+\documentclass[tikz]{standalone}
+\usepackage[T1]{fontenc}
+\usetikzlibrary{arrows.meta,positioning,calc,patterns}
+\usepackage{amsmath}
+
+\definecolor{garnet}{HTML}{73000A}
+\definecolor{atlantic}{HTML}{466A9F}
+\definecolor{congaree}{HTML}{1F414D}
+\definecolor{rose}{HTML}{CC2E40}
+\definecolor{horseshoe}{HTML}{65780B}
+\definecolor{bk70}{HTML}{5C5C5C}
+\definecolor{bk50}{HTML}{A2A2A2}
+\definecolor{bk30}{HTML}{C7C7C7}
+\definecolor{bk10}{HTML}{ECECEC}
+
+\tikzset{
+  dataarrow/.style={-{Stealth[length=5pt]}, thick, color=#1},
+  dataarrow/.default=bk70,
+}
+
+\def\PARAM{0.5}
+\begin{document}
+\begin{tikzpicture}
+  \useasboundingbox (-1,-2) rectangle (11,6);
+
+  \pgfmathtruncatemacro{\frame}{min(2, floor(\PARAM * 3))}
+
+  % ── Frame 0: Depth map with near/far regions ──
+  \ifnum\frame=0
+    \node[font=\large\sffamily\bfseries, color=garnet] at (5,5.5) {Depth Map: Near and Far Regions};
+    \draw[thick, bk70] (1,1) rectangle (9,5);
+    \node[font=\sffamily, color=bk70] at (5,0.6) {Predicted depth map};
+    \fill[garnet!60] (1.1,1.1) rectangle (4,3);
+    \node[font=\sffamily\bfseries, color=white] at (2.55,2.05) {Near};
+    \node[font=\scriptsize, color=white] at (2.55,1.5) {$D \approx 2$m};
+    \fill[atlantic!30] (4,1.1) rectangle (6.5,3);
+    \node[font=\sffamily, color=atlantic] at (5.25,2.05) {Mid};
+    \node[font=\scriptsize, color=atlantic] at (5.25,1.5) {$D \approx 10$m};
+    \fill[congaree!15] (6.5,1.1) rectangle (8.9,3);
+    \node[font=\sffamily, color=congaree] at (7.7,2.05) {Far};
+    \node[font=\scriptsize, color=congaree] at (7.7,1.5) {$D \approx 50$m};
+    \fill[bk10] (1.1,3) rectangle (8.9,4.9);
+    \node[font=\sffamily, color=bk50] at (5,4) {Sky / background};
+  \fi
+
+  % ── Frame 1: Global normalization crushes far ──
+  \ifnum\frame=1
+    \node[font=\large\sffamily\bfseries, color=rose] at (5,5.5) {Global Normalization: Detail Lost};
+    \draw[thick, bk70] (1,1) rectangle (9,5);
+    \fill[garnet!70] (1.1,1.1) rectangle (4,3);
+    \node[font=\sffamily\bfseries, color=white] at (2.55,2.05) {Near};
+    \node[font=\scriptsize, color=white] at (2.55,1.5) {High contrast};
+    \fill[bk10] (4,1.1) rectangle (8.9,3);
+    \node[font=\sffamily, color=bk50] at (6.45,2.05) {Mid + Far: crushed to flat};
+    \fill[bk10] (1.1,3) rectangle (8.9,4.9);
+    \node[font=\small\sffamily, color=rose, align=center] at (5,0.2) {
+      Global normalization: $\hat{D} = (D - \mu) / \sigma$\\
+      Near objects dominate $\mu$ and $\sigma$ $\Rightarrow$ far detail lost
+    };
+    \node[font=\small\sffamily\bfseries, color=bk70] at (5,-0.8) {
+      Same problem as global histogram equalization!
+    };
+  \fi
+
+  % ── Frame 2: RPNL preserves local detail ──
+  \ifnum\frame=2
+    \node[font=\large\sffamily\bfseries, color=garnet] at (5,5.5) {RPNL: Local Normalization Preserves Detail};
+    \draw[thick, bk70] (1,1) rectangle (9,5);
+    \fill[garnet!50] (1.1,1.1) rectangle (4,3);
+    \fill[atlantic!25] (4,1.1) rectangle (6.5,3);
+    \fill[congaree!12] (6.5,1.1) rectangle (8.9,3);
+    \fill[bk10] (1.1,3) rectangle (8.9,4.9);
+    \draw[very thick, atlantic] (1.5,1.3) rectangle (3.8,2.8);
+    \node[font=\scriptsize\sffamily\bfseries, color=atlantic] at (2.65,3.1) {Patch 1: norm locally};
+    \draw[very thick, congaree] (5.0,1.3) rectangle (7.5,2.8);
+    \node[font=\scriptsize\sffamily\bfseries, color=congaree] at (6.25,3.1) {Patch 2: norm locally};
+    \draw[very thick, rose] (3.0,3.2) rectangle (6.0,4.7);
+    \node[font=\scriptsize\sffamily\bfseries, color=rose] at (4.5,4.9) {Patch 3: norm locally};
+    \node[font=\small\sffamily, color=garnet, align=center] at (5,0.2) {
+      Each patch normalized independently $\Rightarrow$ local contrast preserved everywhere
+    };
+    \node[font=\small\sffamily\bfseries, color=atlantic, align=center] at (5,-0.8) {
+      Analogous to Adaptive Histogram Equalization (CLAHE) from Ch.\ 3
+    };
+  \fi
+\end{tikzpicture}
+\end{document}

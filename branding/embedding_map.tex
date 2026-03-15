@@ -1,0 +1,94 @@
+% Source: StudentGovernmentRepo/Common_Sense_Carolina_Lobbying_org/figures/embedding_map.tex
+\documentclass[border=5pt]{standalone}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usetikzlibrary{positioning}
+\definecolor{garnet}{HTML}{73000A}
+\definecolor{rose}{HTML}{CC2E40}
+\definecolor{atlantic}{HTML}{466A9F}
+\definecolor{congaree}{HTML}{1F414D}
+\definecolor{horseshoe}{HTML}{65780B}
+
+\begin{document}
+\begin{tikzpicture}[
+  every node/.style={sharp corners},
+  banner/.style={
+    rectangle,
+    fill=garnet,
+    text=white,
+    font=\large\bfseries,
+    minimum width=21.4cm,
+    minimum height=1.2cm,
+    align=center,
+    inner sep=4pt
+  },
+  colhdr/.style n args={1}{
+    rectangle,
+    fill=#1,
+    text=white,
+    font=\small\bfseries,
+    minimum width=5cm,
+    minimum height=0.9cm,
+    align=center,
+    inner sep=3pt
+  },
+  cell/.style n args={1}{
+    rectangle,
+    fill=#1!10,
+    draw=#1,
+    line width=0.8pt,
+    font=\footnotesize,
+    minimum width=5cm,
+    minimum height=0.7cm,
+    align=center,
+    inner sep=3pt
+  }
+]
+
+%% Column x-coordinates
+\def\colA{0}
+\def\colB{5.4}
+\def\colC{10.8}
+\def\colD{16.2}
+
+%% Banner row
+\node[banner] (top) at (10.7, 0) {Common Sense Carolina};
+
+%% Column headers (y = -1.3)
+\node[colhdr={atlantic}]  at (\colA + 2.5, -1.3) {Student Gov.\ (11--17)};
+\node[colhdr={congaree}]  at (\colB + 2.5, -1.3) {GSA + RHA (4--6)};
+\node[colhdr={horseshoe}] at (\colC + 2.5, -1.3) {Greek + SOFAB (5)};
+\node[colhdr={rose}]      at (\colD + 2.5, -1.3) {Fac./Staff/Media (14+)};
+
+%% Column A — Student Governance (atlantic)
+\def\startY{-2.5}
+\node[cell={atlantic}] at (\colA + 2.5, \startY - 0*1.0) {Student Senate (3--4)};
+\node[cell={atlantic}] at (\colA + 2.5, \startY - 1*1.0) {Exec.\ Cabinet (3--5)};
+\node[cell={atlantic}] at (\colA + 2.5, \startY - 2*1.0) {Constitutional Council (1)};
+\node[cell={atlantic}] at (\colA + 2.5, \startY - 3*1.0) {Freshman Council (1--2)};
+\node[cell={atlantic}] at (\colA + 2.5, \startY - 4*1.0) {Elections Comm.\ (1--2)};
+\node[cell={atlantic}] at (\colA + 2.5, \startY - 5*1.0) {FAB/SAB (1--2)};
+\node[cell={atlantic}] at (\colA + 2.5, \startY - 6*1.0) {Comptrollers (1)};
+
+%% Column B — GSA + RHA (congaree)
+\node[cell={congaree}] at (\colB + 2.5, \startY - 0*1.0) {GSA Cabinet (1--2)};
+\node[cell={congaree}] at (\colB + 2.5, \startY - 1*1.0) {GSA Finance Comm.\ (1)};
+\node[cell={congaree}] at (\colB + 2.5, \startY - 2*1.0) {RHA (2--3)};
+
+%% Column C — Greek + SOFAB (horseshoe)
+\node[cell={horseshoe}] at (\colC + 2.5, \startY - 0*1.0) {SOFAB (1)};
+\node[cell={horseshoe}] at (\colC + 2.5, \startY - 1*1.0) {IFC (1)};
+\node[cell={horseshoe}] at (\colC + 2.5, \startY - 2*1.0) {Panhellenic (1)};
+\node[cell={horseshoe}] at (\colC + 2.5, \startY - 3*1.0) {NPHC (1)};
+\node[cell={horseshoe}] at (\colC + 2.5, \startY - 4*1.0) {MGC (1)};
+
+%% Column D — Faculty/Staff/Media (rose)
+\node[cell={rose}] at (\colD + 2.5, \startY - 0*1.0) {Faculty Senate (2--3)};
+\node[cell={rose}] at (\colD + 2.5, \startY - 1*1.0) {Staff Senate (2--3)};
+\node[cell={rose}] at (\colD + 2.5, \startY - 2*1.0) {Daily Gamecock (6+)};
+\node[cell={rose}] at (\colD + 2.5, \startY - 3*1.0) {SGTV (2+)};
+\node[cell={rose}] at (\colD + 2.5, \startY - 4*1.0) {G\&B Magazine (1+)};
+\node[cell={rose}] at (\colD + 2.5, \startY - 5*1.0) {WUSC (1+)};
+
+\end{tikzpicture}
+\end{document}

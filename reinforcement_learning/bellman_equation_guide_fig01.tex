@@ -1,0 +1,38 @@
+% Source: graduate-coursework/Sp26/CSCE775/course_notes/bellman_equation_guide.tex
+% Description: The RL Loop: You (the agent) pick a route. The city (environment) gives you a new location and a tip.
+
+\documentclass[border=4pt]{standalone}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric, calc, decorations.pathreplacing}
+
+\definecolor{Garnet}{HTML}{73000a}
+\definecolor{SecondaryBlue}{HTML}{466A9F}
+\definecolor{SecondaryGreen}{HTML}{65780B}
+\definecolor{FlatRed}{HTML}{CC2E40}
+\definecolor{FlatDark}{HTML}{1F414D}
+\definecolor{FlatYellow}{HTML}{CED318}
+\definecolor{FlatGold}{HTML}{A49137}
+\definecolor{LightGray}{HTML}{F0F0F0}
+
+\renewcommand{\baselinestretch}{1.2}
+\newcommand{\vocab}[1]{\textbf{\textcolor{Garnet}{#1}}}
+\newcommand{\mathhighlight}[1]{\textcolor{SecondaryBlue}{#1}}
+
+\begin{document}
+\begin{tikzpicture}[node distance=5.5cm, thick]
+        % Nodes
+        \node[draw=none, fill=Garnet, text=white, minimum width=3cm, minimum height=1.5cm] (agent) {\textbf{Driver (Agent)}};
+        \node[draw=none, fill=SecondaryBlue, text=white, minimum width=3cm, minimum height=1.5cm, right=of agent] (env) {\textbf{City (Environment)}};
+
+        % Arrows
+        \draw[-{Latex[length=3mm]}, FlatDark, line width=1.5pt] ([yshift=0.4cm]agent.east) -- node[above, font=\small\bfseries] {Drive to $A_t$} ([yshift=0.4cm]env.west);
+        \draw[-{Latex[length=3mm]}, FlatDark, line width=1.5pt] ([yshift=-0.4cm]env.west) -- node[below, font=\small\bfseries] {New location $S_{t+1}$, Tip $R_{t+1}$} ([yshift=-0.4cm]agent.east);
+    \end{tikzpicture}
+\end{document}

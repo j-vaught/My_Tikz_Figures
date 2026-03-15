@@ -1,0 +1,106 @@
+% Source: graduate-coursework/Sp26/CSCE763/Course_Assignments/Paper_Reading/animations/anim1_metric_ambiguity.tex
+\documentclass[tikz]{standalone}
+\usepackage[T1]{fontenc}
+\usetikzlibrary{arrows.meta,positioning,calc}
+\usepackage{amsmath}
+
+\definecolor{garnet}{HTML}{73000A}
+\definecolor{atlantic}{HTML}{466A9F}
+\definecolor{congaree}{HTML}{1F414D}
+\definecolor{rose}{HTML}{CC2E40}
+\definecolor{bk70}{HTML}{5C5C5C}
+\definecolor{bk30}{HTML}{C7C7C7}
+\definecolor{bk10}{HTML}{ECECEC}
+
+\tikzset{
+  dataarrow/.style={-{Stealth[length=5pt]}, thick, color=#1},
+  dataarrow/.default=bk70,
+}
+
+\def\PARAM{0.5}
+\begin{document}
+\begin{tikzpicture}
+  \useasboundingbox (-1,-1.5) rectangle (11,6);
+
+  % Determine which frame to show (0-3)
+  \pgfmathtruncatemacro{\frame}{min(3, floor(\PARAM * 4))}
+
+  % ── Title (always visible) ──
+  \node[font=\large\sffamily\bfseries, color=garnet] at (5,5.5) {Metric Ambiguity};
+
+  % ── Frame 0: Single camera + object ──
+  \ifnum\frame=0
+    \node[font=\sffamily\bfseries, color=atlantic] at (3,4.5) {Camera};
+    \draw[thick, atlantic, fill=atlantic!10] (3,4.0) -- (1.8,2.5) -- (4.2,2.5) -- cycle;
+    \node[font=\small\sffamily, color=atlantic] at (3,3.2) {$f$};
+    \draw[dataarrow=atlantic] (3,2.5) -- (3,0.5);
+    \draw[very thick, garnet, fill=garnet!15] (2.3,0.0) rectangle (3.7,0.5);
+    \node[font=\sffamily\bfseries, color=garnet] at (3,-0.5) {Object at depth $d$};
+    \draw[thick, bk30] (6.5,0.5) rectangle (9.5,3.5);
+    \node[font=\sffamily, color=bk70] at (8,3.8) {Captured image};
+    \draw[very thick, garnet] (7,1.5) rectangle (9,2.5);
+    \node[font=\small\sffamily, color=garnet] at (8,2.0) {Size $S'$};
+  \fi
+
+  % ── Frame 1: Two cameras, same object ──
+  \ifnum\frame=1
+    \node[font=\sffamily\bfseries, color=atlantic] at (1.5,4.5) {Camera 1};
+    \draw[thick, atlantic, fill=atlantic!10] (1.5,4.0) -- (0.6,2.5) -- (2.4,2.5) -- cycle;
+    \node[font=\small\sffamily, color=atlantic] at (1.5,3.2) {$f_1 = 50$mm};
+    \draw[dataarrow=atlantic] (1.5,2.5) -- (1.5,0.5);
+    \node[font=\small\sffamily, color=atlantic] at (0.2,1.5) {$d_1 = 5$m};
+    \draw[very thick, garnet, fill=garnet!15] (0.8,0.0) rectangle (2.2,0.5);
+
+    \node[font=\sffamily\bfseries, color=congaree] at (5.5,4.5) {Camera 2};
+    \draw[thick, congaree, fill=congaree!10] (5.5,4.0) -- (4.2,2.5) -- (6.8,2.5) -- cycle;
+    \node[font=\small\sffamily, color=congaree] at (5.5,3.2) {$f_2 = 25$mm};
+    \draw[dataarrow=congaree] (5.5,2.5) -- (5.5,1.3);
+    \node[font=\small\sffamily, color=congaree] at (4.0,1.9) {$d_2 = 2.5$m};
+    \draw[very thick, garnet, fill=garnet!15] (4.8,0.8) rectangle (6.2,1.3);
+
+    \node[font=\Huge\bfseries, color=rose] at (8.5,2.5) {?};
+  \fi
+
+  % ── Frame 2: Same projection ──
+  \ifnum\frame=2
+    \draw[thick, atlantic, fill=atlantic!5] (0.5,1.5) rectangle (4.5,4.5);
+    \node[font=\sffamily, color=atlantic] at (2.5,4.8) {Image from Camera 1};
+    \draw[very thick, garnet] (1.5,2.5) rectangle (3.5,3.5);
+    \node[font=\small, color=garnet] at (2.5,3.0) {$S' = S \cdot f_1/d_1$};
+
+    \draw[thick, congaree, fill=congaree!5] (6.0,1.5) rectangle (10.0,4.5);
+    \node[font=\sffamily, color=congaree] at (8.0,4.8) {Image from Camera 2};
+    \draw[very thick, garnet] (7.0,2.5) rectangle (9.0,3.5);
+    \node[font=\small, color=garnet] at (8.0,3.0) {$S' = S \cdot f_2/d_2$};
+
+    \node[font=\Huge\bfseries, color=rose] at (5.25,3.0) {$=$};
+    \node[font=\small\sffamily, color=bk70, align=center] at (5.25,0.5) {
+      $\dfrac{f_1}{d_1} = \dfrac{50}{5} = 10 = \dfrac{25}{2.5} = \dfrac{f_2}{d_2}$
+    };
+    \node[font=\small\sffamily\bfseries, color=rose] at (5.25,-0.5) {Same projection, different depths!};
+  \fi
+
+  % ── Frame 3: Neural net confusion + solution ──
+  \ifnum\frame=3
+    \draw[very thick, bk70, fill=bk10] (3.0,1.5) rectangle (7.5,4.5);
+    \node[font=\sffamily\bfseries, color=bk70] at (5.25,4.0) {Neural Network};
+
+    \draw[thick, garnet, fill=garnet!10] (0,2.5) rectangle (2.5,3.5);
+    \node[font=\small\sffamily, color=garnet] at (1.25,3.0) {Same patch};
+    \draw[dataarrow] (2.5,3.0) -- (3.0,3.0);
+
+    \node[font=\small\sffamily, color=atlantic, align=left] at (5.25,3.0) {
+      Label 1: $d = 5$m\\
+      Label 2: $d = 2.5$m
+    };
+
+    \draw[dataarrow=rose] (7.5,3.0) -- (9.0,3.0);
+    \node[font=\sffamily\bfseries, color=rose] at (10.0,3.0) {Confused!};
+
+    \node[font=\small\sffamily\bfseries, color=garnet, align=center] at (5.25,0.3) {
+      Solution: Normalize all training data to a\\
+      canonical camera $\Rightarrow$ \textbf{CSTM}
+    };
+  \fi
+\end{tikzpicture}
+\end{document}

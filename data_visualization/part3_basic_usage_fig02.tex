@@ -1,0 +1,113 @@
+% Source: graduate-coursework/Research/Intro_to_Agents/handouts/Part3_Basic_Usage.tex
+
+\documentclass[border=4pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{lmodern}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usetikzlibrary{shapes.geometric,arrows.meta,positioning,calc,fit,backgrounds,decorations.pathreplacing}
+
+\definecolor{UofSCGarnet}{HTML}{73000a}
+\definecolor{UofSCBlack}{HTML}{000000}
+\definecolor{UofSCWhite}{HTML}{ffffff}
+\definecolor{UofSCRose}{HTML}{CC2E40}
+\definecolor{UofSCAtlantic}{HTML}{466A9F}
+\definecolor{UofSCCongaree}{HTML}{1F414D}
+\definecolor{UofSCHorseshoe}{HTML}{65780B}
+\definecolor{UofSCGrass}{HTML}{CED318}
+\definecolor{UofSCHoneycomb}{HTML}{A49137}
+\definecolor{UofSC90Black}{HTML}{363636}
+\definecolor{UofSC70Black}{HTML}{5C5C5C}
+\definecolor{UofSC50Black}{HTML}{A2A2A2}
+\definecolor{UofSCWarmGrey}{HTML}{676156}
+\definecolor{UofSCSandstorm}{HTML}{FFF2E3}
+\definecolor{UofSCDarkGarnet}{HTML}{570008}
+\definecolor{UofSCAzalea}{HTML}{844247}
+
+\tikzset{
+    % Sharp-cornered boxes
+    process/.style={
+        rectangle,
+        draw=UofSCBlack,
+        thick,
+        fill=UofSCWhite,
+        text=UofSCBlack,
+        minimum width=3cm,
+        minimum height=0.8cm,
+        align=center,
+        font=\small
+    },
+    process highlight/.style={
+        process,
+        fill=UofSCGarnet,
+        text=UofSCWhite
+    },
+    process secondary/.style={
+        process,
+        fill=UofSCAtlantic,
+        text=UofSCWhite
+    },
+    process tertiary/.style={
+        process,
+        fill=UofSCCongaree,
+        text=UofSCWhite
+    },
+    arrow/.style={
+        ->,
+        >=Stealth,
+        thick,
+        color=UofSCBlack
+    },
+    arrow garnet/.style={
+        arrow,
+        color=UofSCGarnet
+    },
+    label box/.style={
+        rectangle,
+        draw=none,
+        fill=UofSCSandstorm,
+        text=UofSCBlack,
+        font=\scriptsize,
+        align=center
+    },
+    decision/.style={
+        diamond,
+        draw=UofSCBlack,
+        thick,
+        fill=UofSCHoneycomb,
+        text=UofSCBlack,
+        minimum width=2cm,
+        minimum height=1cm,
+        align=center,
+        font=\small,
+        aspect=2
+    }
+}
+
+\begin{document}
+\begin{tikzpicture}[node distance=0.6cm, scale=0.8, transform shape]
+        % Flow nodes
+        \node[process highlight] (spec) {1. Natural Language Spec};
+        \node[process, below=of spec] (context) {2. Context Analysis};
+        \node[process, below=of context] (pattern) {3. Pattern Recognition};
+        \node[process, below=of pattern] (gen) {4. Code Generation};
+        \node[process, below=of gen] (int) {5. Integration};
+        \node[process secondary, below=of int] (val) {6. Validation};
+
+        % Arrows
+        \draw[arrow] (spec) -- (context);
+        \draw[arrow] (context) -- (pattern);
+        \draw[arrow] (pattern) -- (gen);
+        \draw[arrow] (gen) -- (int);
+        \draw[arrow] (int) -- (val);
+
+        % Side descriptions
+        \node[label box, right=0.5cm of spec, text width=5cm] {Describe what you want};
+        \node[label box, right=0.5cm of context, text width=5cm] {Tool reads relevant files};
+        \node[label box, right=0.5cm of pattern, text width=5cm] {Identifies similar code in project};
+        \node[label box, right=0.5cm of gen, text width=5cm] {Creates code matching style};
+        \node[label box, right=0.5cm of int, text width=5cm] {Places in correct location};
+        \node[label box, right=0.5cm of val, text width=5cm] {Checks for errors, adjusts};
+    \end{tikzpicture}
+\end{document}

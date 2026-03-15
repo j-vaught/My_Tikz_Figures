@@ -1,0 +1,103 @@
+% Source: graduate-coursework/Research/Intro_to_Agents/handouts/Part1_Introduction_Installation.tex
+
+\documentclass[border=4pt]{standalone}
+\usepackage{amsmath,amssymb}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{lmodern}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usetikzlibrary{shapes.geometric,arrows.meta,positioning,fit,backgrounds,calc}
+
+\definecolor{Garnet}{HTML}{73000A}
+\definecolor{DarkGarnet}{HTML}{570008}
+\definecolor{Rose}{HTML}{CC2E40}
+\definecolor{Atlantic}{HTML}{466A9F}
+\definecolor{Congaree}{HTML}{1F414D}
+\definecolor{Horseshoe}{HTML}{65780B}
+\definecolor{Grass}{HTML}{CED318}
+\definecolor{Honeycomb}{HTML}{A49137}
+\definecolor{Black90}{HTML}{363636}
+\definecolor{Black70}{HTML}{5C5C5C}
+\definecolor{Black50}{HTML}{A2A2A2}
+\definecolor{WarmGrey}{HTML}{676156}
+\definecolor{Sandstorm}{HTML}{FFF2E3}
+\definecolor{Azalea}{HTML}{844247}
+
+\tikzset{
+    % Sharp corners, no rounded edges
+    agentbox/.style={
+        rectangle,
+        draw=Garnet,
+        fill=white,
+        thick,
+        minimum width=4cm,
+        minimum height=1cm,
+        align=center,
+        font=\small
+    },
+    agentboxfill/.style={
+        rectangle,
+        draw=Garnet,
+        fill=Sandstorm,
+        thick,
+        minimum width=4cm,
+        minimum height=1cm,
+        align=center,
+        font=\small
+    },
+    toolbox/.style={
+        rectangle,
+        draw=Atlantic,
+        fill=white,
+        thick,
+        minimum width=2.5cm,
+        minimum height=0.8cm,
+        align=center,
+        font=\scriptsize
+    },
+    categorybox/.style={
+        rectangle,
+        draw=Congaree,
+        fill=Sandstorm,
+        thick,
+        minimum width=3.5cm,
+        minimum height=0.7cm,
+        align=center,
+        font=\small
+    },
+    arrow/.style={
+        ->,
+        >=stealth,
+        thick,
+        color=Garnet
+    },
+    dashedarrow/.style={
+        ->,
+        >=stealth,
+        dashed,
+        thick,
+        color=Atlantic
+    }
+}
+
+\begin{document}
+\begin{tikzpicture}[
+                    node distance=0.8cm,
+                    scale=0.9,
+                    transform shape
+                ]
+                    \node[agentboxfill, minimum width=4cm] (cursor) {
+                        \textbf{Cursor}\\
+                        \small Download DMG/installer
+                    };
+                    \node[agentbox, below=of cursor, minimum width=4cm] (windsurf) {
+                        \textbf{Windsurf}\\
+                        \small Download from website
+                    };
+                    \node[agentbox, below=of windsurf, minimum width=4cm] (zed) {
+                        \textbf{Zed}\\
+                        \small brew install zed
+                    };
+                \end{tikzpicture}
+\end{document}

@@ -1,0 +1,29 @@
+% Source: Code/CommonSenseCarolina/logo_v02.08.26.tex
+\documentclass[border=0pt]{standalone}
+\usepackage{tikz}
+\usepackage{fontspec}
+
+\setmainfont{Georgia}[
+  BoldFont = Georgia Bold,
+  Scale = 1.0
+]
+
+\definecolor{garnet}{HTML}{73000A}
+
+\begin{document}
+\begin{tikzpicture}
+  % Top garnet rule
+  \fill[garnet] (0, 1.6) rectangle (10.2, 1.72);
+
+  % COMMON SENSE text
+  \node[anchor=west, font=\fontsize{28}{30}\selectfont\bfseries, text=black]
+    at (0, 1.05) {COMMON SENSE};
+
+  % CAROLINA text
+  \node[anchor=west, font=\fontsize{28}{30}\selectfont\bfseries, text=garnet]
+    at (0, 0.15) {CAROLINA};
+
+  % Bottom garnet rule
+  \fill[garnet] (0, -0.42) rectangle (10.2, -0.3);
+\end{tikzpicture}
+\end{document}

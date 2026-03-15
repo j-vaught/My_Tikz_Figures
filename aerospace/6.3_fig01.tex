@@ -1,0 +1,67 @@
+% Source: AESP_466_ClassWork/Supplements/Notes/latex/6.3/6.3.tex
+
+\documentclass[border=4pt]{standalone}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usetikzlibrary{arrows.meta,calc,positioning,decorations.markings,patterns,shapes.geometric,angles,quotes}
+
+\definecolor{Garnet}{HTML}{73000A}
+\definecolor{USC_Rose}{HTML}{CC2E40}
+\definecolor{USC_Blue}{HTML}{466A9F}
+\definecolor{USC_Slate}{HTML}{1F414D}
+\definecolor{USC_Olive}{HTML}{65780B}
+\definecolor{USC_Lime}{HTML}{CED318}
+\definecolor{USC_Gold}{HTML}{A49137}
+\definecolor{USC_Black90}{HTML}{565556}
+\definecolor{USC_Black10}{HTML}{ECECEC}
+
+\newcommand{\vect}[1]{\mathbf{#1}}
+\newcommand{\mat}[1]{\mathbf{#1}}
+\newcommand{\uvec}[1]{\hat{\mathbf{#1}}}
+\newcommand{\transpose}{^{\mkern-1.5mu\mathsf{T}}}
+\newcommand{\inv}{^{-1}}
+\newcommand{\deriv}[2]{\frac{d #1}{d #2}}
+\newcommand{\pderiv}[2]{\frac{\partial #1}{\partial #2}}
+
+\begin{document}
+\begin{tikzpicture}[>=Stealth, scale=1.2]
+    % Draw coordinate axes
+    \draw[->, thick, USC_Blue] (0,0) -- (4,0) node[right] {$x$ (body axis)};
+    \draw[->, thick, USC_Blue] (0,0) -- (0,3) node[above] {$z$};
+    \draw[->, thick, USC_Blue] (0,0) -- (-1.5,-1.5) node[below left] {$y$};
+
+    % Freestream velocity vector (with alpha)
+    \draw[->, very thick, Garnet] (0,0) -- (3.5,1.2) node[above right] {$\mathbf{V}_\infty$};
+
+    % Angle alpha (in xz-plane)
+    \draw[thick, USC_Olive] (2,0) arc[start angle=0, end angle=18.9, radius=2];
+    \node[USC_Olive] at (2.3,0.4) {$\alpha$};
+
+    % Projection onto xz-plane
+    \draw[dashed, USC_Black90] (3.5,1.2) -- (3.5,0);
+
+    % Second diagram for beta (xy-plane view)
+    \begin{scope}[shift={(7,0)}]
+        % Draw coordinate axes
+        \draw[->, thick, USC_Blue] (0,0) -- (4,0) node[right] {$x$ (body axis)};
+        \draw[->, thick, USC_Blue] (0,0) -- (0,3) node[above] {$y$};
+        \draw[->, thick, USC_Blue] (0,0) -- (-1.5,-1.5) node[below left] {$z$};
+
+        % Freestream velocity vector (with beta)
+        \draw[->, very thick, Garnet] (0,0) -- (3.2,1.5) node[above right] {$\mathbf{V}_\infty$};
+
+        % Angle beta (in xy-plane)
+        \draw[thick, USC_Rose] (2,0) arc[start angle=0, end angle=25, radius=2];
+        \node[USC_Rose] at (2.3,0.5) {$\beta$};
+
+        % Projection onto xy-plane
+        \draw[dashed, USC_Black90] (3.2,1.5) -- (3.2,0);
+    \end{scope}
+
+    % Labels
+    \node[below, USC_Black90] at (1.5,-2) {\textbf{(a)} Angle of attack $\alpha$ in $xz$-plane};
+    \node[below, USC_Black90] at (8.5,-2) {\textbf{(b)} Sideslip angle $\beta$ in $xy$-plane};
+\end{tikzpicture}
+\end{document}

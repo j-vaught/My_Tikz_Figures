@@ -1,0 +1,141 @@
+% Source: graduate-coursework/Sp26/CSCE763/Course_Assignments/Paper_Reading/animations/anim3_convgru_refinement.tex
+\documentclass[tikz]{standalone}
+\usepackage[T1]{fontenc}
+\usetikzlibrary{arrows.meta,positioning,calc}
+\usepackage{amsmath}
+
+\definecolor{garnet}{HTML}{73000A}
+\definecolor{atlantic}{HTML}{466A9F}
+\definecolor{congaree}{HTML}{1F414D}
+\definecolor{rose}{HTML}{CC2E40}
+\definecolor{horseshoe}{HTML}{65780B}
+\definecolor{bk70}{HTML}{5C5C5C}
+\definecolor{bk50}{HTML}{A2A2A2}
+\definecolor{bk30}{HTML}{C7C7C7}
+\definecolor{bk10}{HTML}{ECECEC}
+
+\tikzset{
+  dataarrow/.style={-{Stealth[length=5pt]}, thick, color=#1},
+  dataarrow/.default=bk70,
+  pipeblock/.style={rectangle, draw=#1, fill=#1!10, thick,
+    minimum width=2.0cm, minimum height=0.7cm,
+    font=\small\sffamily, align=center, inner sep=4pt},
+  pipeblock/.default=garnet,
+}
+
+\def\PARAM{0.5}
+\begin{document}
+\begin{tikzpicture}
+  \useasboundingbox (-1,-2) rectangle (12,6);
+
+  \pgfmathtruncatemacro{\frame}{min(4, floor(\PARAM * 5))}
+
+  % ── Frame 0: Decoder output (coarse) ──
+  \ifnum\frame=0
+    \node[font=\large\sffamily\bfseries, color=garnet] at (5.5,5.5) {Step 1: Decoder Output (Coarse)};
+    \node[pipeblock=congaree, minimum width=3cm, minimum height=1.2cm] (dec) at (2,3) {Decoder};
+    \draw[thick, atlantic] (6,2) rectangle (9,4);
+    \node[font=\sffamily, color=atlantic] at (7.5,4.3) {Depth $D_0$};
+    \fill[atlantic!20] (6.1,2.1) rectangle (7.4,3.9);
+    \fill[atlantic!40] (7.5,2.1) rectangle (8.9,3.9);
+    \node[font=\scriptsize\sffamily, color=bk70] at (7.5,1.6) {Coarse, blurry};
+    \draw[thick, congaree] (6,-0.5) rectangle (9,1.5);
+    \node[font=\sffamily, color=congaree] at (7.5,1.8) {Normal $\mathbf{n}_0$};
+    \fill[congaree!20] (6.1,-0.4) rectangle (8.9,1.4);
+    \node[font=\scriptsize\sffamily, color=bk70] at (7.5,-0.9) {Noisy, inaccurate};
+    \draw[dataarrow=atlantic] (dec.east) -- ++(1,0) |- (7.5,3);
+    \draw[dataarrow=congaree] (dec.east) -- ++(1,0) |- (7.5,0.5);
+  \fi
+
+  % ── Frame 1: ConvGRU structure ──
+  \ifnum\frame=1
+    \node[font=\large\sffamily\bfseries, color=garnet] at (5.5,5.5) {Step 2: ConvGRU Iterative Loop};
+    \node[pipeblock=garnet, minimum width=3.5cm, minimum height=1.8cm] (gru) at (5.5,2.5) {
+      \textbf{ConvGRU}\\[2pt]
+      Update: $h_t, D_t, \mathbf{n}_t$
+    };
+    \node[pipeblock=bk70, minimum width=2cm] (feat) at (0.5,2.5) {Features};
+    \draw[dataarrow] (feat) -- (gru);
+    \draw[dataarrow=rose, very thick, rounded corners=8pt]
+      (gru.north) -- ++(0,1) -- ++(4,0) -- ++(0,-3.5) -- ++(-4,0) -- (gru.south);
+    \node[font=\small\sffamily, color=rose] at (7.5,4.2) {Hidden state $h_t$};
+    \node[pipeblock=atlantic, minimum width=2cm] (dout) at (10.5,3.5) {$\Delta D_t$};
+    \node[pipeblock=congaree, minimum width=2cm] (nout) at (10.5,1.5) {$\Delta \mathbf{n}_t$};
+    \draw[dataarrow=atlantic] (gru.east) -- ++(0.5,0) |- (dout);
+    \draw[dataarrow=congaree] (gru.east) -- ++(0.5,0) |- (nout);
+    \node[font=\small\sffamily\bfseries, color=garnet, align=center] at (5.5,-1) {
+      Shared hidden state couples depth and normal updates
+    };
+  \fi
+
+  % ── Frame 2: After 1 iteration ──
+  \ifnum\frame=2
+    \node[font=\large\sffamily\bfseries, color=garnet] at (5.5,5.5) {Step 3: After 1 Iteration};
+    \draw[thick, atlantic] (0.5,2) rectangle (3.5,4);
+    \node[font=\sffamily, color=atlantic] at (2,4.3) {$D_0$ (coarse)};
+    \fill[atlantic!20] (0.6,2.1) rectangle (1.9,3.9);
+    \fill[atlantic!40] (2.0,2.1) rectangle (3.4,3.9);
+    \draw[dataarrow=garnet, very thick] (4.0,3) -- (5.0,3)
+      node[midway, above, font=\scriptsize\sffamily] {GRU};
+    \draw[thick, atlantic] (5.5,2) rectangle (8.5,4);
+    \node[font=\sffamily, color=atlantic] at (7,4.3) {$D_1$: edges emerging};
+    \fill[atlantic!15] (5.6,2.1) rectangle (6.9,3.9);
+    \fill[atlantic!35] (7.0,2.1) rectangle (7.8,3.9);
+    \fill[atlantic!55] (7.8,2.1) rectangle (8.4,3.9);
+    \draw[thick, congaree] (5.5,-0.5) rectangle (8.5,1.5);
+    \node[font=\sffamily, color=congaree] at (7,1.8) {$\mathbf{n}_1$: less noisy};
+    \fill[congaree!15] (5.6,-0.4) rectangle (6.9,1.4);
+    \fill[congaree!35] (7.0,-0.4) rectangle (8.4,1.4);
+    \node[font=\small\sffamily, color=bk70] at (5.5,-0.9) {Edges sharpen, normals become consistent};
+  \fi
+
+  % ── Frame 3: Progressive refinement bar ──
+  \ifnum\frame=3
+    \node[font=\large\sffamily\bfseries, color=garnet] at (5.5,5.5) {Step 4: After $T$ Iterations (Final)};
+    \foreach \i/\c/\lab in {0/10/t{=}0, 1/25/t{=}1, 2/40/t{=}2, 3/70/t{=}T} {
+      \pgfmathsetmacro{\x}{0.5 + \i*2.8}
+      \draw[thick, atlantic] (\x,3) rectangle (\x+2,4.5);
+      \fill[atlantic!\c] (\x+0.05,3.05) rectangle (\x+1.95,4.45);
+      \node[font=\scriptsize\sffamily, color=atlantic] at (\x+1,2.7) {$\lab$};
+    }
+    \foreach \i in {0,1,2} {
+      \pgfmathsetmacro{\x}{2.7 + \i*2.8}
+      \draw[dataarrow=garnet] (\x,3.75) -- (\x+0.6,3.75);
+    }
+    \node[font=\sffamily, color=atlantic] at (5.5,5.0) {Depth: coarse $\longrightarrow$ sharp};
+    \draw[very thick, garnet] (8.9,2.9) rectangle (11.1,4.6);
+    \node[font=\sffamily\bfseries, color=garnet] at (10,2.5) {Final output};
+    \node[font=\small\sffamily, color=bk70, align=center] at (5.5,0.5) {
+      Typically $T = 3$ iterations suffice.\\
+      Each iteration refines both depth \textit{and} normals jointly.
+    };
+    \node[font=\small\sffamily, color=rose, align=center] at (5.5,-1) {
+      All $T$ iterations are supervised $\Rightarrow$ progressive training signal
+    };
+  \fi
+
+  % ── Frame 4: Three supervision sources ──
+  \ifnum\frame=4
+    \node[font=\large\sffamily\bfseries, color=garnet] at (5.5,5.5) {Three Sources of Supervision};
+    \node[pipeblock=atlantic, minimum width=4cm, minimum height=1cm] (s1) at (2.5,3.5) {
+      \textbf{1.} GT Depth $\to L_d$
+    };
+    \node[pipeblock=congaree, minimum width=4cm, minimum height=1cm] (s2) at (2.5,1.8) {
+      \textbf{2.} GT Normals $\to L_n$
+    };
+    \node[pipeblock=rose, minimum width=4cm, minimum height=1cm] (s3) at (2.5,0.1) {
+      \textbf{3.} Consistency $\to L_{d\text{-}n}$
+    };
+    \draw[dataarrow=atlantic] (s1.east) -- ++(3,0)
+      node[right, font=\small\sffamily, color=atlantic] {Metric accuracy};
+    \draw[dataarrow=congaree] (s2.east) -- ++(3,0)
+      node[right, font=\small\sffamily, color=congaree] {Surface quality};
+    \draw[dataarrow=rose] (s3.east) -- ++(3,0)
+      node[right, font=\small\sffamily, color=rose, align=left] {Learns normals from\\depth-only data};
+    \node[font=\small\sffamily\bfseries, color=garnet, align=center] at (5.5,-1.2) {
+      $L_{d\text{-}n}$ bridges the annotation gap: only $\sim$20K outdoor normal labels,\\
+      but millions of depth labels available
+    };
+  \fi
+\end{tikzpicture}
+\end{document}

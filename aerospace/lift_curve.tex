@@ -1,0 +1,58 @@
+% Source: graduate-coursework/Prior_Semesters/Fa25/EMCH721/HW1/HW1_JCV/figures/lift_curve.tex
+
+\documentclass[border=4pt]{standalone}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{courier}
+\usepackage{graphicx}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{xcolor}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{
+    arrows,
+    automata,
+    positioning,
+    shapes,
+    calc,
+    decorations.pathreplacing, % User's original library
+    decorations.pathmorphing,  % Needed for spring/damper effects
+    patterns                   % Needed for hatched patterns
+}
+
+
+\begin{document}
+% This file only contains the TikZ picture code.
+\begin{tikzpicture}[scale=1.5]
+    % Load TikZ libraries for angle annotations
+    \usetikzlibrary{angles, quotes}
+
+    % Define coordinates for key points
+    \coordinate (O) at (0,0); % Origin
+
+    % Draw the axes
+    \draw[->, thick] (-0.5, 0) -- (4.5, 0) node[below] {$\theta$};
+    \draw[->, thick] (0, -0.5) -- (0, 3.8) node[left] {$C_L$};
+
+    % Draw the main lift curve with a rounded stall
+    \draw[blue, thick, tension=0.8] plot[smooth] coordinates {
+        (0, 0) (0.8, 1.5) (1.5, 2.5) (2.0, 2.85) (2.5, 3.0) 
+        (2.8, 3.05) (3.0, 3.0) (3.2, 2.9) (3.5, 2.6) (4.0, 2.0)
+    };
+
+    % Add the "stall" label near the rounded peak
+    \node[anchor=south west] at (2.8, 3.05) {\textbf{stall}};
+
+    % Indicate the linear region
+    \draw[red, dashed] (O) -- (1.5, 2.7);
+
+    % Add the equation for the linear approximation
+    \node[anchor=west, blue] at (1.5, 1) {$C_L = a_1 \theta$};
+
+    % Annotate the angle
+    \coordinate (p_horizontal) at (1.5, 0);
+    \coordinate (p_slope) at (1, 1.8);
+    \pic [draw, "{$a_1=2\pi$}", angle eccentricity=1.4, angle radius=0.8cm] {angle = p_horizontal--O--p_slope};
+\end{tikzpicture}
+\end{document}

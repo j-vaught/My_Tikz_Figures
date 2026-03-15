@@ -1,0 +1,209 @@
+% Source: graduate-coursework/Research/Intro_to_Agents/handouts/Part8_Advanced_Topics.tex
+
+\documentclass[border=4pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{lmodern}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc, fit, backgrounds, matrix, decorations.pathreplacing}
+
+\definecolor{UofSCGarnet}{HTML}{73000a}
+\definecolor{UofSCBlack}{HTML}{000000}
+\definecolor{UofSCWhite}{HTML}{ffffff}
+\definecolor{UofSCRose}{HTML}{CC2E40}
+\definecolor{UofSCAtlantic}{HTML}{466A9F}
+\definecolor{UofSCCongaree}{HTML}{1F414D}
+\definecolor{UofSCHorseshoe}{HTML}{65780B}
+\definecolor{UofSCGrass}{HTML}{CED318}
+\definecolor{UofSCHoneycomb}{HTML}{A49137}
+\definecolor{UofSC90Black}{HTML}{363636}
+\definecolor{UofSC70Black}{HTML}{5C5C5C}
+\definecolor{UofSC50Black}{HTML}{A2A2A2}
+\definecolor{UofSCWarmGrey}{HTML}{676156}
+\definecolor{UofSCSandstorm}{HTML}{FFF2E3}
+\definecolor{UofSCDarkGarnet}{HTML}{570008}
+\definecolor{UofSCAzalea}{HTML}{844247}
+
+\tikzset{
+    % Sharp corners for all nodes
+    every node/.style={font=\small},
+    % Process box style
+    process/.style={
+        rectangle,
+        draw=UofSCBlack,
+        fill=UofSCWhite,
+        minimum width=2.5cm,
+        minimum height=0.8cm,
+        align=center,
+        font=\footnotesize
+    },
+    % Decision box style
+    decision/.style={
+        diamond,
+        draw=UofSCBlack,
+        fill=UofSCSandstorm,
+        minimum width=2cm,
+        minimum height=1cm,
+        align=center,
+        font=\footnotesize,
+        aspect=2
+    },
+    % Start/End style
+    startstop/.style={
+        rectangle,
+        draw=UofSCGarnet,
+        fill=UofSCGarnet,
+        text=UofSCWhite,
+        minimum width=2cm,
+        minimum height=0.7cm,
+        align=center,
+        font=\footnotesize\bfseries
+    },
+    % Arrow style
+    arrow/.style={
+        ->,
+        >=Stealth,
+        thick,
+        color=UofSCBlack
+    },
+    % Failure node
+    failure/.style={
+        rectangle,
+        draw=UofSCRose,
+        fill=UofSCRose!20,
+        minimum width=2cm,
+        minimum height=0.7cm,
+        align=center,
+        font=\footnotesize
+    },
+    % Success node
+    success/.style={
+        rectangle,
+        draw=UofSCHorseshoe,
+        fill=UofSCHorseshoe!20,
+        minimum width=2cm,
+        minimum height=0.7cm,
+        align=center,
+        font=\footnotesize
+    },
+    % Highlight box
+    highlight/.style={
+        rectangle,
+        draw=UofSCGarnet,
+        fill=UofSCGarnet!10,
+        line width=1.5pt,
+        minimum width=2.5cm,
+        minimum height=0.8cm,
+        align=center,
+        font=\footnotesize
+    },
+    % Security threat style
+    threat/.style={
+        rectangle,
+        draw=UofSCRose,
+        fill=UofSCRose!15,
+        minimum width=2.2cm,
+        minimum height=0.7cm,
+        align=center,
+        font=\footnotesize
+    },
+    % Agent node
+    agent/.style={
+        rectangle,
+        draw=UofSCAtlantic,
+        fill=UofSCAtlantic!15,
+        minimum width=2.2cm,
+        minimum height=0.8cm,
+        align=center,
+        font=\footnotesize
+    },
+    % Human node
+    human/.style={
+        rectangle,
+        draw=UofSCCongaree,
+        fill=UofSCCongaree!15,
+        minimum width=2.2cm,
+        minimum height=0.8cm,
+        align=center,
+        font=\footnotesize
+    },
+    % Cost node
+    cost/.style={
+        rectangle,
+        draw=UofSCHoneycomb,
+        fill=UofSCHoneycomb!20,
+        minimum width=2cm,
+        minimum height=0.7cm,
+        align=center,
+        font=\footnotesize
+    },
+    % Test node
+    test/.style={
+        rectangle,
+        draw=UofSCAtlantic,
+        fill=UofSCAtlantic!10,
+        minimum width=2cm,
+        minimum height=0.7cm,
+        align=center,
+        font=\footnotesize
+    },
+    % Pipeline stage
+    pipeline/.style={
+        rectangle,
+        draw=UofSCCongaree,
+        fill=UofSCCongaree!10,
+        minimum width=2.5cm,
+        minimum height=0.8cm,
+        align=center,
+        font=\footnotesize
+    },
+    % Timeline event
+    timeline/.style={
+        rectangle,
+        draw=UofSCGarnet,
+        fill=UofSCWhite,
+        minimum width=1.8cm,
+        minimum height=0.6cm,
+        align=center,
+        font=\tiny
+    }
+}
+
+\begin{document}
+\begin{tikzpicture}[node distance=0.6cm and 2cm, scale=0.7, transform shape]
+        % Error Recovery Workflow
+        \node (task) [startstop] {Task};
+        \node (pre) [process, below=of task] {Check Preconditions};
+        \node (d1) [decision, below=of pre] {Valid?};
+        \node (step1) [process, below left=0.8cm and 0.5cm of d1] {Execute Step 1};
+        \node (fail1) [failure, right=2cm of d1] {Report \& Stop};
+        \node (v1) [decision, below=of step1] {Validate?};
+        \node (step2) [process, below left=0.8cm and 0.5cm of v1] {Execute Step 2};
+        \node (fail2) [failure, right=2cm of v1] {Report \& Stop};
+        \node (v2) [decision, below=of step2] {Validate?};
+        \node (complete) [success, below left=0.8cm and 0.5cm of v2] {Complete};
+        \node (fail3) [failure, right=2cm of v2] {Report \& Stop};
+
+        \draw [arrow] (task) -- (pre);
+        \draw [arrow] (pre) -- (d1);
+        \draw [arrow] (d1) -- node[left, font=\tiny] {Yes} (step1);
+        \draw [arrow] (d1) -- node[above, font=\tiny] {No} (fail1);
+        \draw [arrow] (step1) -- (v1);
+        \draw [arrow] (v1) -- node[left, font=\tiny] {Yes} (step2);
+        \draw [arrow] (v1) -- node[above, font=\tiny] {No} (fail2);
+        \draw [arrow] (step2) -- (v2);
+        \draw [arrow] (v2) -- node[left, font=\tiny] {Yes} (complete);
+        \draw [arrow] (v2) -- node[above, font=\tiny] {No} (fail3);
+
+        % Principles on the right
+        \node [right=4cm of task, text width=5cm, font=\small] {
+            \textbf{Principles:}\\[0.2cm]
+            1. Assume failure is possible\\
+            2. Make failures visible\\
+            3. Preserve state (version control)\\
+            4. Design incremental tasks\\
+            5. Validate at each step
+        };
+    \end{tikzpicture}
+\end{document}

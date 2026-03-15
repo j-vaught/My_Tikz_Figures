@@ -1,0 +1,32 @@
+% Source: graduate-coursework/Prior_Semesters/Fa24/EMCH367/assignments/hw1/hw1.tex
+
+\documentclass[border=4pt]{standalone}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{xcolor}
+
+\begin{document}
+\begin{tikzpicture}[scale=1.5]
+			      		
+		% Draw the vertical line through the circle
+		\draw[thick] (0, -1.5) -- (0, 1.5);
+			      		
+		% Spring force with arrow and label
+		\draw[->, thick] (0, 1) -- (-2.5, 1); % Arrow for spring force
+		\node[above] at (-2, 1) {$-kx$}; % Label for spring force
+			      		
+		% Damper force with arrow and label
+		\draw[->, thick] (0, -1) -- (-2.5, -1); % Arrow for damper force
+		\node[below] at (-2, -1) {$-b\dot{x}$}; % Label for damper force
+			      		
+		% Draw a horizontal line to the right for F(t)
+		\draw[thick, ->] (0, 0) -- (2, 0);
+		\node[right] at (2, 0) {$F(t)$}; % Label for the applied force
+			      		    
+		% Draw the opaque circle at (0,0) with m in the center
+		\filldraw[fill=white, thick] (0,0) circle (0.5);
+		\node at (0, 0) {$m$};
+	\end{tikzpicture}
+\end{document}

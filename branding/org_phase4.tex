@@ -1,0 +1,179 @@
+% Source: StudentGovernmentRepo/Common_Sense_Carolina_Lobbying_org/figures/org_phase4.tex
+\documentclass[border=15pt]{standalone}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usetikzlibrary{positioning, arrows.meta, calc, fit, backgrounds}
+\definecolor{garnet}{HTML}{73000A}
+\definecolor{lightgarnet}{HTML}{F5EAEB}
+\definecolor{sandstorm}{HTML}{FFF2E3}
+\definecolor{rose}{HTML}{CC2E40}
+\definecolor{atlantic}{HTML}{466A9F}
+\definecolor{congaree}{HTML}{1F414D}
+\definecolor{horseshoe}{HTML}{65780B}
+\definecolor{honeycomb}{HTML}{A49137}
+\definecolor{grass}{HTML}{CED318}
+\definecolor{warmgrey}{HTML}{676156}
+
+\begin{document}
+\begin{tikzpicture}[
+  every node/.style={rectangle, align=center, inner sep=4pt},
+  arr/.style={-{Stealth[length=3mm]}, thick},
+  darr/.style={-{Stealth[length=3mm]}, thick, dashed, draw=warmgrey},
+  beat/.style={fill=white, minimum width=2cm, minimum height=0.7cm, font=\scriptsize},
+  ext/.style={fill=sandstorm, draw=warmgrey, dashed, minimum width=2.5cm, minimum height=0.8cm, font=\scriptsize}
+]
+
+%% ── Row 0: Executive Board ──────────────────────────────────────────
+\node[fill=garnet, text=white, minimum width=8cm, minimum height=1.2cm]
+  (exec) at (0,0) {\textbf{Executive Board (5 Officers)}};
+
+%% ── Row 1: Wings ────────────────────────────────────────────────────
+\node[fill=rose!90, text=white, minimum width=4cm, minimum height=1cm]
+  (rep) at (-9.5,-2.5) {\textbf{Reporting Wing}};
+
+\node[fill=atlantic!90, text=white, minimum width=4cm, minimum height=1cm]
+  (res) at (-3.5,-2.5) {\textbf{Research Wing}};
+
+\node[fill=congaree!90, text=white, minimum width=4cm, minimum height=1cm]
+  (pol) at (3.5,-2.5) {\textbf{Policy Dev.\ Wing}};
+
+\node[fill=horseshoe!90, text=white, minimum width=4cm, minimum height=1cm]
+  (out) at (9.5,-2.5) {\textbf{Outreach Division}};
+
+%% ── Row 2: Beat Teams ───────────────────────────────────────────────
+%% 9 nodes, min width=2cm, inner sep=4pt => ~2.3cm rendered.
+%% Uniform 2.8cm center-to-center spacing.
+
+%% Reporting Wing beats
+\node[beat, draw=rose]
+  (sgbeat) at (-12.3,-4.5) {SG Beat};
+
+\node[beat, draw=rose]
+  (rhabeat) at (-9.5,-4.5) {RHA Beat};
+
+\node[beat, draw=rose]
+  (sofabbeat) at (-6.7,-4.5) {SOFAB Beat};
+
+%% Research Wing beats
+\node[beat, draw=atlantic]
+  (data) at (-3.5,-4.5) {Data};
+
+\node[beat, draw=atlantic]
+  (survey) at (-0.7,-4.5) {Survey};
+
+\node[beat, draw=atlantic]
+  (foia) at (2.1,-4.5) {FOIA};
+
+%% Policy Dev. Wing beats
+\node[beat, draw=congaree]
+  (brief) at (4.9,-4.5) {Policy Brief};
+
+\node[beat, draw=congaree]
+  (lobby) at (7.7,-4.5) {Lobbying};
+
+\node[beat, draw=congaree]
+  (advoc) at (10.5,-4.5) {Advocacy};
+
+%% ── NEW: Media Coordination Bureau (y=-7) ─────────────────────────
+\node[fill=grass!80, text=black, minimum width=4cm, minimum height=1cm]
+  (media) at (-5,-7) {\textbf{Media Bureau}};
+
+%% Media outlet nodes: min width=2.5cm, inner sep=4pt => ~2.8cm rendered.
+%% Spacing = 3.2cm center-to-center.
+\node[fill=grass!20, draw=grass!80, minimum width=2.5cm, minimum height=0.7cm, font=\scriptsize]
+  (dgck) at (-9.8,-8.5) {Daily GC (3+)};
+
+\node[fill=grass!20, draw=grass!80, minimum width=2.5cm, minimum height=0.7cm, font=\scriptsize]
+  (sgtv) at (-6.6,-8.5) {SGTV (2+)};
+
+\node[fill=grass!20, draw=grass!80, minimum width=2.5cm, minimum height=0.7cm, font=\scriptsize]
+  (gbmag) at (-3.4,-8.5) {G\&B Mag.\ (1+)};
+
+\node[fill=grass!20, draw=grass!80, minimum width=2.5cm, minimum height=0.7cm, font=\scriptsize]
+  (wusc) at (-0.2,-8.5) {WUSC (1+)};
+
+%% ── NEW: Greek Council Liaisons (right column) ──────────────────────
+\node[fill=honeycomb!80, text=white, minimum width=3.5cm, minimum height=1cm]
+  (greek) at (9,-7) {\textbf{Greek Liaisons}};
+
+\node[fill=honeycomb!20, draw=honeycomb, minimum width=2.5cm, minimum height=0.7cm, font=\scriptsize]
+  (ifc) at (9,-8.2) {IFC};
+
+\node[fill=honeycomb!20, draw=honeycomb, minimum width=2.5cm, minimum height=0.7cm, font=\scriptsize]
+  (panhe) at (9,-9) {Panhellenic};
+
+\node[fill=honeycomb!20, draw=honeycomb, minimum width=2.5cm, minimum height=0.7cm, font=\scriptsize]
+  (nphc) at (9,-9.8) {NPHC};
+
+\node[fill=honeycomb!20, draw=honeycomb, minimum width=2.5cm, minimum height=0.7cm, font=\scriptsize]
+  (mgc) at (9,-10.6) {MGC};
+
+%% ── Row (y=-11): External Bodies ────────────────────────────────────
+\node[ext]
+  (senate) at (-10,-11) {Student Senate};
+
+\node[ext]
+  (cabinet) at (-7,-11) {Exec.\ Cabinet};
+
+\node[ext]
+  (fresh) at (-4,-11) {Freshman Council};
+
+\node[ext]
+  (rha) at (-1,-11) {RHA};
+
+\node[ext]
+  (sofab) at (2,-11) {SOFAB};
+
+\node[ext]
+  (elec) at (5,-11) {Elections Comm.};
+
+%% ── Arrows: Exec to Wings ───────────────────────────────────────────
+\draw[arr] (exec.south) -- ++(0,-0.5) -| (rep.north);
+\draw[arr] (exec.south) -- ++(0,-0.5) -| (res.north);
+\draw[arr] (exec.south) -- ++(0,-0.5) -| (pol.north);
+\draw[arr] (exec.south) -- ++(0,-0.5) -| (out.north);
+
+%% ── Arrows: Exec to new sections (dashed, labeled) ──────────────────
+\draw[darr] (exec.south) -- ++(0,-0.5) -| node[midway, above, font=\tiny, text=warmgrey] {New}
+  (media.north);
+\draw[darr] (exec.south) -- ++(0,-0.5) -| (greek.north);
+
+%% ── Arrows: Wings to Beat Teams ─────────────────────────────────────
+\draw[arr] (rep.south) -- (sgbeat.north);
+\draw[arr] (rep.south) -- (rhabeat.north);
+\draw[arr] (rep.south) -- (sofabbeat.north);
+
+\draw[arr] (res.south) -- (data.north);
+\draw[arr] (res.south) -- (survey.north);
+\draw[arr] (res.south) -- (foia.north);
+
+\draw[arr] (pol.south) -- (brief.north);
+\draw[arr] (pol.south) -- (lobby.north);
+\draw[arr] (pol.south) -- (advoc.north);
+
+%% ── Arrows: Media Bureau to outlets ─────────────────────────────────
+\draw[arr] (media.south) -- (dgck.north);
+\draw[arr] (media.south) -- (sgtv.north);
+\draw[arr] (media.south) -- (gbmag.north);
+\draw[arr] (media.south) -- (wusc.north);
+
+%% ── Arrows: Greek header to councils ────────────────────────────────
+\draw[arr] (greek.south) -- (ifc.north);
+\draw[arr] (greek.south) -- (panhe.north);
+\draw[arr] (greek.south) -- (nphc.north);
+\draw[arr] (greek.south) -- (mgc.north);
+
+%% ── Dashed Arrows: Beat Teams to External Bodies ────────────────────
+\draw[darr] (sgbeat.south)    -- (senate.north);
+\draw[darr] (rhabeat.south)   -- (cabinet.north);
+\draw[darr] (sofabbeat.south) -- (fresh.north);
+\draw[darr] (rhabeat.south)   -- (rha.north);
+\draw[darr] (sofabbeat.south) -- (sofab.north);
+\draw[darr] (brief.south)     -- (elec.north);
+
+%% ── Title ────────────────────────────────────────────────────────────
+\node[font=\small\bfseries, text=garnet] at (0,-13)
+  {Phase 4: Media Saturation + Greek Expansion (26--35 Members)};
+
+\end{tikzpicture}
+\end{document}

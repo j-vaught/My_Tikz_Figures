@@ -1,0 +1,66 @@
+% Source: StudentGovernmentRepo/Common_Sense_Carolina_Lobbying_org/figures/org_phase1.tex
+\documentclass[border=5pt]{standalone}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usetikzlibrary{positioning, arrows.meta}
+
+\definecolor{garnet}{HTML}{73000A}
+\definecolor{rose}{HTML}{CC2E40}
+\definecolor{atlantic}{HTML}{466A9F}
+\definecolor{horseshoe}{HTML}{65780B}
+
+\begin{document}
+\begin{tikzpicture}[
+  every node/.style={rectangle, sharp corners, align=center},
+  arrow/.style={-{Stealth[length=3mm]}, line width=1.2pt, black!70}
+]
+
+%% Row 0: Founding Lead
+\node[
+  fill=garnet, text=white, draw=garnet, line width=0.8pt,
+  font=\small\bfseries,
+  minimum width=5cm, minimum height=0.9cm
+] (lead) at (0,0) {Founding Lead};
+
+%% Row 1: Pod Leads + Ops Coordinator
+\node[
+  fill=rose, text=white, draw=rose, line width=0.6pt,
+  font=\footnotesize\bfseries,
+  minimum width=4.5cm, minimum height=0.8cm
+] (editorial) at (-5,-2) {Editorial Pod Lead};
+
+\node[
+  fill=atlantic, text=white, draw=atlantic, line width=0.6pt,
+  font=\footnotesize\bfseries,
+  minimum width=4.5cm, minimum height=0.8cm
+] (field) at (0,-2) {Field Pod Lead};
+
+\node[
+  fill=horseshoe, text=white, draw=horseshoe, line width=0.6pt,
+  font=\footnotesize\bfseries,
+  minimum width=4.5cm, minimum height=0.8cm
+] (ops) at (5,-2) {Operations Coordinator};
+
+%% Row 2: Sub-units
+\node[
+  fill=rose!10, draw=rose, text=rose, line width=0.6pt,
+  font=\footnotesize,
+  minimum width=4.5cm, minimum height=0.7cm
+] (writers) at (-5,-3.8) {Writers + Editors};
+
+\node[
+  fill=atlantic!10, draw=atlantic, text=atlantic, line width=0.6pt,
+  font=\footnotesize,
+  minimum width=4.5cm, minimum height=0.7cm
+] (liaisons) at (0,-3.8) {Liaisons + Researchers};
+
+%% Arrows
+\draw[arrow] (lead) -- (editorial);
+\draw[arrow] (lead) -- (field);
+\draw[arrow] (lead) -- (ops);
+
+\draw[arrow] (editorial) -- (writers);
+\draw[arrow] (field) -- (liaisons);
+
+\end{tikzpicture}
+\end{document}

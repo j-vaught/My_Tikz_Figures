@@ -1,0 +1,41 @@
+% Source: graduate-coursework/Daily_Gamecock/Docs/onboarding/Opinion_Editing_Handbook.tex
+
+\documentclass[border=4pt]{standalone}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usetikzlibrary{positioning,shapes.geometric}
+
+\definecolor{garnet}{RGB}{115,0,10}
+\definecolor{black}{RGB}{0,0,0}
+\definecolor{rose}{RGB}{204,46,64}
+\definecolor{atlantic}{RGB}{70,106,159}
+\definecolor{congaree}{RGB}{31,65,77}
+\definecolor{horseshoe}{RGB}{101,120,11}
+\definecolor{neutral90}{RGB}{54,54,54}
+\definecolor{neutral70}{RGB}{92,92,92}
+
+\newcommand{\doctitle}{%
+    \noindent{\LARGE\bfseries The Daily Gamecock \textit{Opinion}}\\[2pt]
+    {\LARGE\bfseries Editing Handbook}\\[4pt]
+    {\normalsize J.C. Vaught, Asst. Opinion Editor}\\[-2pt]
+    \noindent\rule{\textwidth}{1pt}
+    \vspace{8pt}
+}
+
+\begin{document}
+\begin{tikzpicture}[node distance=5cm]
+    \node (original) [draw, minimum width=4cm, minimum height=0.8cm] {Original Draft};
+    \node (research) [draw, right of=original, minimum width=4cm, minimum height=0.8cm] {Research Review};
+    \node (reporting) [draw, right of=research, minimum width=4cm, minimum height=0.8cm] {Additional Reporting};
+    \node (structure) [draw, below of=reporting, minimum width=4cm, minimum height=0.8cm] {Restructure};
+    \node (rewrite) [draw, rounded corners, left of=structure, minimum width=4cm, minimum height=0.8cm] {Complete Rewrite};
+    \node (final) [draw, rounded corners, left of=rewrite, minimum width=4cm, minimum height=0.8cm] {Final Product};
+
+    \draw [->] (original) -- (research);
+    \draw [->] (research) -- (reporting);
+    \draw [->] (reporting) -- (structure);
+    \draw [->] (structure) -- (rewrite);
+    \draw [->] (rewrite) -- (final);
+\end{tikzpicture}
+\end{document}

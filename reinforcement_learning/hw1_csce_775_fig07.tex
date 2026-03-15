@@ -1,0 +1,42 @@
+% Source: graduate-coursework/Sp26/CSCE775/HW1/HW1_CSCE_775.tex
+
+\documentclass[border=4pt]{standalone}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{xcolor}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, automata, calc, decorations.markings, patterns}
+
+\definecolor{USC_Garnet}{HTML}{73000A}
+\definecolor{USC_Sandstorm}{HTML}{FFF2E3}
+\definecolor{USC_Black90}{HTML}{363636}
+\definecolor{USC_Black70}{HTML}{5C5C5C}
+\definecolor{USC_Black50}{HTML}{A2A2A2}
+\definecolor{USC_Black10}{HTML}{ECECEC}
+\definecolor{USC_Honeycomb}{HTML}{A49137}
+\definecolor{USC_Horseshoe}{HTML}{65780B}
+\definecolor{USC_Atlantic}{HTML}{466A9F}
+\definecolor{USC_Congaree}{HTML}{1F414D}
+\definecolor{USC_Rose}{HTML}{CC2E40}
+
+
+\begin{document}
+\begin{tikzpicture}[
+    scale=1.3,
+    cell/.style={minimum size=1.8cm, draw=USC_Black90, line width=0.8pt, font=\small, anchor=center}
+]
+\node[cell] at (0, 3.6) {};
+\node[cell] at (1.8, 3.6) {};
+\node[cell, fill=USC_Horseshoe!30] at (3.6, 3.6) {G};
+\node[cell] at (0, 1.8) {};
+\node[cell, fill=USC_Black90, text=white] at (1.8, 1.8) {W};
+\node[cell, fill=USC_Rose!30] at (3.6, 1.8) {T};
+\node[cell] at (0, 0) {};
+\node[cell] at (1.8, 0) {};
+\node[cell] at (3.6, 0) {};
+\end{tikzpicture}
+\end{document}

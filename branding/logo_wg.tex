@@ -1,0 +1,37 @@
+% Source: StudentGovernmentRepo/assets/logos/logo_WG.tex
+\documentclass[border=0pt]{standalone}
+\usepackage{tikz}
+\usepackage{fontspec}
+\usepackage{calc}
+
+\setmainfont{Georgia}[
+  BoldFont = Georgia Bold,
+  Scale = 1.0
+]
+
+\definecolor{garnet}{HTML}{73000A}
+\definecolor{sandstorm}{HTML}{FFF2E3}
+
+\newsavebox{\csbox}
+
+\begin{document}
+
+% Measure "COMMON SENSE" width
+\savebox{\csbox}{\fontsize{28}{30}\selectfont\bfseries COMMON SENSE}
+
+\begin{tikzpicture}
+  % Top white rule — centered, extending beyond text width
+  \fill[garnet] (-\wd\csbox/2 - 15pt, 1.75) rectangle (\wd\csbox/2 + 15pt, 1.87);
+
+  % COMMON SENSE text — white
+  \node[anchor=center, font=\fontsize{28}{30}\selectfont\bfseries, text=white]
+    at (0, 1.15) {COMMON SENSE};
+
+  % CAROLINA text — garnet, stretched to match COMMON SENSE width
+  \node[anchor=center, font=\bfseries, text=garnet]
+    at (0, 0.05) {\resizebox{\wd\csbox}{!}{\fontsize{28}{30}\selectfont CAROLINA}};
+
+  % Bottom white rule — centered
+  \fill[garnet] (-\wd\csbox/2 - 15pt, -0.78) rectangle (\wd\csbox/2 + 15pt, -0.66);
+\end{tikzpicture}
+\end{document}

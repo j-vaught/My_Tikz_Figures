@@ -1,0 +1,67 @@
+% Source: Code/yolo-ablation-bench/precision_report.tex
+
+\documentclass[border=4pt]{standalone}
+\usepackage{amssymb}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{helvet}
+\usepackage{lmodern}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\usepackage{tikz}
+\usepackage[dvipsnames,table]{xcolor}
+\pgfplotsset{compat=1.18}
+
+\definecolor{garnet}{HTML}{73000A}
+\definecolor{midgray}{gray}{0.35}
+\definecolor{lightgray}{gray}{0.8}
+\definecolor{dlacolor}{HTML}{2E7D32}
+\definecolor{gpucolor}{HTML}{1565C0}
+\definecolor{fp32color}{HTML}{9E9E9E}
+\definecolor{fp16color}{HTML}{FF9800}
+\definecolor{int8color}{HTML}{4CAF50}
+
+
+\newcommand{\headline}[1]{\textcolor{garnet}{\Large\bfseries #1}}
+\newcommand{\subhead}[1]{\textcolor{midgray}{\large #1}}
+\newcommand{\fpthirtytwo}[1]{\textcolor{fp32color}{\textbf{#1}}}
+\newcommand{\fpsixteen}[1]{\textcolor{fp16color}{\textbf{#1}}}
+\newcommand{\inteight}[1]{\textcolor{int8color}{\textbf{#1}}}
+\newcommand{\gpu}[1]{\textcolor{gpucolor}{\textbf{#1}}}
+\newcommand{\dla}[1]{\textcolor{dlacolor}{\textbf{#1}}}
+
+\begin{document}
+\begin{tikzpicture}
+  \begin{axis}[
+    width=\textwidth,
+    height=6cm,
+    ybar,
+    bar width=12pt,
+    xlabel={YOLOv8 Model},
+    ylabel={Detections per Frame},
+    symbolic x coords={nano,small,medium},
+    xtick=data,
+    legend pos=north east,
+    ymin=0, ymax=10,
+    legend style={font=\small},
+    nodes near coords,
+    every node near coord/.style={font=\tiny, color=midgray, anchor=south},
+  ]
+    % FP32
+    \addplot+[fill=fp32color!70, draw=none] coordinates {
+      (nano, 6.82) (small, 7.45) (medium, 8.12)
+    };
+    \addlegendentry{FP32}
+    % FP16
+    \addplot+[fill=fp16color!70, draw=none] coordinates {
+      (nano, 6.81) (small, 7.44) (medium, 8.11)
+    };
+    \addlegendentry{FP16}
+    % INT8
+    \addplot+[fill=int8color!70, draw=none] coordinates {
+      (nano, 6.58) (small, 7.21) (medium, 7.84)
+    };
+    \addlegendentry{INT8 (est.)}
+  \end{axis}
+\end{tikzpicture}
+\end{document}

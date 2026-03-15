@@ -1,0 +1,42 @@
+% Source: graduate-coursework/Daily_Gamecock/Docs/onboarding/Opinion_Editing_Handbook.tex
+
+\documentclass[border=4pt]{standalone}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usetikzlibrary{positioning,shapes.geometric}
+
+\definecolor{garnet}{RGB}{115,0,10}
+\definecolor{black}{RGB}{0,0,0}
+\definecolor{rose}{RGB}{204,46,64}
+\definecolor{atlantic}{RGB}{70,106,159}
+\definecolor{congaree}{RGB}{31,65,77}
+\definecolor{horseshoe}{RGB}{101,120,11}
+\definecolor{neutral90}{RGB}{54,54,54}
+\definecolor{neutral70}{RGB}{92,92,92}
+
+\newcommand{\doctitle}{%
+    \noindent{\LARGE\bfseries The Daily Gamecock \textit{Opinion}}\\[2pt]
+    {\LARGE\bfseries Editing Handbook}\\[4pt]
+    {\normalsize J.C. Vaught, Asst. Opinion Editor}\\[-2pt]
+    \noindent\rule{\textwidth}{1pt}
+    \vspace{8pt}
+}
+
+\begin{document}
+\begin{tikzpicture}[node distance=5cm]
+    \node (claim) [draw, minimum width=2.5cm, minimum height=1cm] {Factual Claim};
+    \node (source1) [draw, above right of=claim, minimum width=2cm, minimum height=0.8cm] {Source 1};
+    \node (source2) [draw, below right of=claim, minimum width=2cm, minimum height=0.8cm] {Source 2};
+    \node (verify) [draw, diamond, right of=source1, below of=source1, minimum width=2cm, minimum height=1.5cm] {Sources Agree?};
+    \node (accept) [draw, right of=verify, minimum width=2cm, minimum height=0.8cm] {Accept Claim};
+    \node (investigate) [draw, below of=verify, minimum width=2cm, minimum height=0.8cm] {Further Investigation};
+
+    \draw [->] (claim) -- (source1);
+    \draw [->] (claim) -- (source2);
+    \draw [->] (source1) -- (verify);
+    \draw [->] (source2) -- (verify);
+    \draw [->] (verify) -- node[anchor=south] {Yes} (accept);
+    \draw [->] (verify) -- node[anchor=east] {No} (investigate);
+\end{tikzpicture}
+\end{document}

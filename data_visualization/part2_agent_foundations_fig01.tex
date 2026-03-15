@@ -1,0 +1,124 @@
+% Source: graduate-coursework/Research/Intro_to_Agents/handouts/Part2_Agent_Foundations.tex
+
+\documentclass[border=4pt]{standalone}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, fit, calc, backgrounds}
+
+\definecolor{UofSCGarnet}{HTML}{73000a}
+\definecolor{UofSCBlack}{HTML}{000000}
+\definecolor{UofSCWhite}{HTML}{ffffff}
+\definecolor{UofSCAtlantic}{HTML}{466A9F}
+\definecolor{UofSCCongaree}{HTML}{1F414D}
+\definecolor{UofSCRose}{HTML}{CC2E40}
+\definecolor{UofSCHorseshoe}{HTML}{65780B}
+\definecolor{UofSCGrass}{HTML}{CED318}
+\definecolor{UofSCHoneycomb}{HTML}{A49137}
+\definecolor{UofSCDarkGarnet}{HTML}{570008}
+\definecolor{UofSCAzalea}{HTML}{844247}
+\definecolor{UofSC90Black}{HTML}{363636}
+\definecolor{UofSC70Black}{HTML}{5C5C5C}
+\definecolor{UofSC50Black}{HTML}{A2A2A2}
+\definecolor{UofSCWarmGrey}{HTML}{676156}
+\definecolor{UofSCSandstorm}{HTML}{FFF2E3}
+
+\tikzset{
+    % Box styles with sharp corners
+    component/.style={
+        rectangle,
+        draw=UofSCBlack,
+        fill=UofSCWhite,
+        thick,
+        minimum width=3cm,
+        minimum height=1cm,
+        align=center,
+        font=\small
+    },
+    component garnet/.style={
+        component,
+        fill=UofSCGarnet!10,
+        draw=UofSCGarnet,
+        thick
+    },
+    component atlantic/.style={
+        component,
+        fill=UofSCAtlantic!10,
+        draw=UofSCAtlantic,
+        thick
+    },
+    component congaree/.style={
+        component,
+        fill=UofSCCongaree!10,
+        draw=UofSCCongaree,
+        thick
+    },
+    loop node/.style={
+        rectangle,
+        draw=UofSCGarnet,
+        fill=UofSCGarnet!15,
+        thick,
+        minimum width=2.5cm,
+        minimum height=1.2cm,
+        align=center,
+        font=\footnotesize\bfseries
+    },
+    decision/.style={
+        diamond,
+        draw=UofSCBlack,
+        fill=UofSCHoneycomb!20,
+        thick,
+        minimum width=2cm,
+        minimum height=1.5cm,
+        align=center,
+        font=\footnotesize,
+        aspect=2
+    },
+    arrow style/.style={
+        ->,
+        >=Stealth,
+        thick,
+        UofSCBlack
+    },
+    biarrow style/.style={
+        <->,
+        >=Stealth,
+        thick,
+        UofSCBlack
+    }
+}
+
+\begin{document}
+\begin{tikzpicture}[scale=0.85, transform shape]
+        % Traditional AI Assistant (left side)
+        \node[font=\small\bfseries, text=UofSCGarnet] at (-4.5, 4) {TRADITIONAL AI ASSISTANT};
+
+        \node[component] (trad-input) at (-4.5, 3) {User prompt};
+        \node[component atlantic] (trad-process) at (-4.5, 1.5) {Process input\\Generate text};
+        \node[component] (trad-output) at (-4.5, 0) {Single response\\(Done)};
+
+        \draw[arrow style] (trad-input) -- (trad-process);
+        \draw[arrow style] (trad-process) -- (trad-output);
+
+        % VS
+        \node[font=\Large\bfseries, text=UofSC70Black] at (0, 1.5) {vs};
+
+        % Agent (right side)
+        \node[font=\small\bfseries, text=UofSCGarnet] at (4.5, 4) {AGENT};
+
+        \node[component] (agent-input) at (4.5, 3) {User goal};
+        \node[component garnet] (agent-assess) at (4.5, 1.5) {Assess state\\Plan actions};
+        \node[component garnet] (agent-execute) at (4.5, 0) {Execute action};
+        \node[component garnet] (agent-observe) at (4.5, -1.5) {Observe result};
+        \node[decision] (agent-decision) at (4.5, -3) {Goal\\met?};
+        \node[component, fill=UofSCHorseshoe!20] (agent-done) at (2.5, -4.5) {Done};
+
+        \draw[arrow style] (agent-input) -- (agent-assess);
+        \draw[arrow style] (agent-assess) -- (agent-execute);
+        \draw[arrow style] (agent-execute) -- (agent-observe);
+        \draw[arrow style] (agent-observe) -- (agent-decision);
+        \draw[arrow style] (agent-decision) -- node[left, font=\tiny] {Yes} (agent-done);
+        \draw[arrow style] (agent-decision.east) -- ++(0.8,0) |- node[right, font=\tiny, pos=0.25] {No} (agent-assess.east);
+    \end{tikzpicture}
+\end{document}

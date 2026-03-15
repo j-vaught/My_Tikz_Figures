@@ -1,0 +1,85 @@
+% Source: Code/PointCloudWork/docs/paper.tex
+% Description: Detection rate versus radar cross-section (RCS). Small vessels with RCS below 1~m$^2$ operate near the sea clutter floor, resulting in intermittent detections. Larger vessels achieve near-perfect detection rates.
+
+\documentclass[border=4pt]{standalone}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{times}
+\usetikzlibrary{positioning,shapes,arrows.meta,patterns,calc}
+
+\definecolor{garnet}{HTML}{73000A}
+\definecolor{coral}{HTML}{CC2E40}
+\definecolor{slate}{HTML}{466A9F}
+\definecolor{teal}{HTML}{1F414D}
+\definecolor{olive}{HTML}{65780B}
+\definecolor{lime}{HTML}{CED318}
+\definecolor{gold}{HTML}{A49137}
+
+\begin{document}
+\begin{tikzpicture}[scale=0.85]
+        % Background
+        \fill[gray!5] (0,0) rectangle (9,5.5);
+        
+        % Axes
+        \draw[-{Stealth}, black] (0,0) -- (9,0) node[right, font=\small] {RCS (m$^2$)};
+        \draw[-{Stealth}, black] (0,0) -- (0,5.5) node[above, font=\small] {Detection Rate (\%)};
+        
+        % Y-axis labels
+        \foreach \y/\label in {0/0, 1/20, 2/40, 3/60, 4/80, 5/100} {
+            \draw[black] (-0.1,\y) -- (0.1,\y);
+            \node[left, font=\scriptsize] at (-0.15,\y) {\label};
+        }
+        
+        % X-axis labels (log scale representation)
+        \foreach \x/\label in {0.8/$<$0.5, 2.2/1, 3.6/10, 5.0/100, 6.4/1k, 7.8/10k} {
+            \draw[black] (\x,-0.1) -- (\x,0.1);
+            \node[below, font=\scriptsize] at (\x,-0.2) {\label};
+        }
+        
+        % Grid lines
+        \foreach \y in {1,2,3,4,5} {
+            \draw[gray!25] (0.3,\y) -- (8.5,\y);
+        }
+        
+        % Detection curve (S-curve)
+        \draw[garnet, very thick] 
+            (0.5,0.8) .. controls (1.5,1.2) and (2.0,2.5) .. 
+            (3.0,3.8) .. controls (4.0,4.6) and (5.0,4.9) .. 
+            (8.3,5.0);
+        
+        % Clutter floor region
+        \fill[coral!20, opacity=0.5] (0.3,0) rectangle (2.0,1.5);
+        \draw[coral, dashed] (2.0,0) -- (2.0,1.5);
+        \node[coral, font=\tiny, align=center] at (1.15,0.7) {Clutter\\Floor};
+        
+        % Data points with vessel icons
+        % Kayak
+        \fill[gold] (0.8,1.2) circle (0.15);
+        \node[font=\tiny, gold, above] at (0.8,1.4) {Kayak};
+        
+        % Jet ski
+        \fill[olive] (1.5,1.8) circle (0.15);
+        \node[font=\tiny, olive, above right] at (1.5,1.9) {Jet ski};
+        
+        % Sailboat
+        \fill[slate] (2.8,3.5) circle (0.15);
+        \node[font=\tiny, slate, above] at (2.8,3.7) {Sailboat};
+        
+        % Motorboat
+        \fill[teal] (3.6,4.2) circle (0.15);
+        \node[font=\tiny, teal, above] at (3.6,4.4) {Motorboat};
+        
+        % Trawler
+        \fill[coral] (5.0,4.7) circle (0.15);
+        \node[font=\tiny, coral, above] at (5.0,4.9) {Trawler};
+        
+        % Tanker
+        \fill[garnet] (7.5,5.0) circle (0.15);
+        \node[font=\tiny, garnet, below] at (7.5,4.8) {Tanker};
+        
+        % Annotation
+        \draw[gray, thick, {Stealth}-] (1.3,1.0) -- (1.8,0.3);
+        \node[font=\tiny, gray, align=center] at (2.8,0.3) {Difficult\\detection};
+    \end{tikzpicture}
+\end{document}

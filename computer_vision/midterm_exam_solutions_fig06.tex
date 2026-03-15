@@ -1,0 +1,56 @@
+% Source: graduate-coursework/Sp26/CSCE763/Course_Assignments/Exam/Midterm_Exam_solutions.tex
+
+\documentclass[border=4pt]{standalone}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, patterns, calc}
+
+\definecolor{USC_Garnet}{HTML}{73000A}
+\definecolor{USC_Sandstorm}{HTML}{FFF2E3}
+\definecolor{USC_Black90}{HTML}{363636}
+\definecolor{USC_Black70}{HTML}{5C5C5C}
+\definecolor{USC_Black50}{HTML}{A2A2A2}
+\definecolor{USC_Black10}{HTML}{ECECEC}
+\definecolor{USC_Honeycomb}{HTML}{65780B}
+\definecolor{USC_Atlantic}{HTML}{466A9F}
+\definecolor{USC_Congaree}{HTML}{1F414D}
+\definecolor{USC_Rose}{HTML}{CC2E40}
+
+\newcommand{\problem}[1]{%
+  \vspace{0.5cm}
+  {\noindent\normalsize \textbf{#1}}
+  \vspace{0.3cm}
+}
+
+\begin{document}
+\begin{tikzpicture}[scale=0.85]
+    % Axes
+    \draw[->] (-4,0) -- (5,0) node[right] {$t$};
+    \draw[->] (0,-0.5) -- (0,4) node[above] {$f(t)$};
+
+    % Tick marks on x-axis
+    \foreach \x in {-3,-2,-1,1,2,3,4} {
+        \draw (\x,0.08) -- (\x,-0.08) node[below] {\small $\x$};
+    }
+    \node[below] at (0,-0.08) {\small $0$};
+
+    % Tick marks on y-axis
+    \foreach \y in {1,2,3} {
+        \draw (0.08,\y) -- (-0.08,\y) node[left] {\small $\y$};
+    }
+
+    % The step function: 3 from -2 to -1, 2 from -1 to 2, 3 from 2 to 4
+    \draw[thick] (-3.5,0) -- (-2,0);         % zero before -2
+    \draw[thick] (-2,0) -- (-2,3);           % rise to 3 at -2
+    \draw[thick] (-2,3) -- (-1,3);           % plateau at 3
+    \draw[thick] (-1,3) -- (-1,2);           % drop to 2 at -1
+    \draw[thick] (-1,2) -- (2,2);            % plateau at 2 (middle)
+    \draw[thick] (2,2) -- (2,3);             % rise to 3 at 2
+    \draw[thick] (2,3) -- (4,3);             % plateau at 3
+    \draw[thick] (4,3) -- (4,0);             % drop to 0 at 4
+    \draw[thick] (4,0) -- (4.5,0);           % zero after 4
+\end{tikzpicture}
+\end{document}

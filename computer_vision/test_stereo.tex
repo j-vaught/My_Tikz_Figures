@@ -1,0 +1,43 @@
+% Source: graduate-coursework/Sp26/CSCE763/Course_Assignments/Paper_Reading/slides/test_stereo.tex
+\documentclass[border=5pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+
+\definecolor{horseshoe}{HTML}{65780B}
+\definecolor{atlantic}{HTML}{466A9F}
+\definecolor{garnet}{HTML}{73000A}
+\definecolor{rose}{HTML}{CC2E40}
+\definecolor{congaree}{HTML}{1F414D}
+\definecolor{honeycomb}{HTML}{A49137}
+\definecolor{warmgrey}{HTML}{676156}
+\definecolor{grass}{HTML}{CED318}
+
+\begin{document}
+\begin{tikzpicture}
+  \useasboundingbox (-3,-3) rectangle (7,3);
+  \draw[horseshoe, thick] (-3,-3) rectangle (7,3);
+
+  % Camera scope — controls position, scale, rotation of entire camera
+  \begin{scope}[shift={(-2,0)}, scale=1]
+    % CMOS sensor — 6 pixels stacked, centered at origin
+    \foreach \i in {0,...,5} {
+      \pgfmathsetmacro{\ybot}{-0.6 + \i*0.2}
+      \pgfmathsetmacro{\ytop}{-0.6 + (\i+1)*0.2}
+      \draw[atlantic, thin, fill=atlantic!15] (0,\ybot) rectangle (0.075,\ytop);
+    }
+
+    % Pixel-to-lens triangles — 6 distinct colors
+    \def\lc{0.68} % lens center x
+    \foreach \i/\clr in {0/garnet, 1/rose, 2/atlantic, 3/congaree, 4/honeycomb, 5/horseshoe} {
+      \pgfmathsetmacro{\ybot}{-0.6 + \i*0.2}
+      \pgfmathsetmacro{\ytop}{-0.6 + (\i+1)*0.2}
+      \fill[\clr, opacity=0.25] (0.075,\ybot) -- (\lc,0) -- (0.075,\ytop) -- cycle;
+      \draw[\clr, thin] (0.075,\ybot) -- (\lc,0) -- (0.075,\ytop);
+    }
+
+    % Lens — offset to the right of CMOS (drawn on top)
+    \fill[atlantic] (0.65,-0.12) rectangle (0.71,0.12);
+  \end{scope}
+
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,74 @@
+% Source: AESP_466_ClassWork/Assignments/Assignment_1/AESP466_HW1_Solutions_Sp26.tex
+% Description: Aircraft in a steady level turn
+
+\documentclass[border=4pt]{standalone}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usetikzlibrary{arrows.meta, calc, patterns, angles, quotes, 3d, decorations.pathmorphing}
+
+\definecolor{Garnet}{HTML}{73000A}
+\definecolor{USC_Rose}{HTML}{CC2E40}
+\definecolor{USC_Blue}{HTML}{466A9F}
+\definecolor{USC_Slate}{HTML}{1F414D}
+\definecolor{USC_Olive}{HTML}{65780B}
+\definecolor{USC_Lime}{HTML}{CED318}
+\definecolor{USC_Gold}{HTML}{A49137}
+\definecolor{USC_Black90}{HTML}{565656}
+\definecolor{USC_Black10}{HTML}{ECECEC}
+
+\begin{document}
+\begin{tikzpicture}[scale=1.2, >=Stealth]
+    % Vertical axis
+    \draw[->, thick, black] (0,0) -- (0,3.5) node[above] {$\hat{\mathbf{k}}_I$ (vertical)};
+    
+    % Turn path circle
+    \draw[dashed, USC_Black90!40] (0,0) circle (2.8);
+    \node[black, below] at (0,-3.2) {Turn path};
+    
+    % Turn rate arrow
+    \draw[->, line width=2pt, USC_Rose] (0,2.8) arc (90:150:2.8);
+    \node[black, left] at (-2.2,2.2) {$\omega_{\text{Turn}}$};
+    
+    % Text annotation
+    \node[align=center, black] at (-3.5,1) {Level turn\\(constant altitude)};
+    
+    % Aircraft position on circle (positioned to fly tangent to circle)
+    \coordinate (aircraft) at (50:2.8);
+    
+    % Aircraft body (top view, flying counterclockwise)
+    \begin{scope}[shift={(aircraft)}, rotate=-40]  % Visual orientation
+        % Fuselage
+        \draw[thick, black, fill=USC_Black10] (-0.5,-0.12) rectangle (0.5,0.12);
+        % Wings (perpendicular to fuselage)
+        \draw[thick, black, fill=USC_Black10] (0,-0.9) rectangle (0.15,0.9);
+        % Tail
+        \draw[thick, black, fill=USC_Black10] (-0.5,-0.08) -- (-0.7,0) -- (-0.5,0.08) -- cycle;
+    \end{scope}
+    
+    % Body axes from aircraft
+    \begin{scope}[shift={(aircraft)}, rotate=140]  % Flight direction (50° + 90° = 140°)
+        \draw[->, line width=1.5pt, Garnet] (0,0) -- (1.3,0) node[right] {$\hat{\mathbf{i}}_V$};
+        \draw[->, line width=1.5pt, USC_Olive] (0,0) -- (0,1.3) node[above] {$\hat{\mathbf{j}}_V$};
+    \end{scope}
+    
+    % Bank angle inset (right side) - simpler version
+    \begin{scope}[shift={(5.5,1.5)}]
+        % Horizon line
+        \draw[thick, black] (-1.2,0) -- (1.2,0);
+        
+        % Banked aircraft (rear view) - simpler representation
+        \draw[very thick, black, rotate=25] (-0.9,0) -- (0.9,0);  % wings
+        \draw[very thick, black, rotate=25] (0,0) -- (0,0.35);    % tail
+        \fill[black, rotate=25] (0,0) circle (0.06);
+        
+        % Bank angle arc
+        \draw[thick, black] (0.5,0) arc (0:25:0.5);
+        \node[black, right, font=\small] at (0.55,0.15) {$\phi$};
+        
+        \node[black, below, font=\small] at (0,-0.8) {Bank angle};
+    \end{scope}
+\end{tikzpicture}
+\end{document}

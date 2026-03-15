@@ -1,0 +1,48 @@
+% Source: graduate-coursework/Sp26/CSCE775/Project/proposal_asv_3/proposal3_asv.tex
+% Description: Five-term composite reward function with default weights. The safety margin receives the highest weight ($w_s=2.0$) to prioritize safe-return behavior, while energy efficiency receives the lowest ($w_e=0.3$) to avoid overly conservative exploration.
+
+\documentclass[border=4pt]{standalone}
+\usepackage{amsmath,amssymb}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{xcolor}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{positioning, arrows.meta, shapes.geometric, fit, calc, backgrounds, patterns, decorations.pathreplacing}
+
+\definecolor{Garnet}{HTML}{73000A}
+\definecolor{Atlantic}{HTML}{466A9F}
+\definecolor{Congaree}{HTML}{1F414D}
+\definecolor{Horseshoe}{HTML}{65780B}
+\definecolor{Rose}{HTML}{CC2E40}
+\definecolor{Honeycomb}{HTML}{A49137}
+\definecolor{Black90}{HTML}{363636}
+\definecolor{Black70}{HTML}{5C5C5C}
+\definecolor{Black50}{HTML}{A2A2A2}
+\definecolor{Black30}{HTML}{C7C7C7}
+\definecolor{Black10}{HTML}{ECECEC}
+\definecolor{WarmGrey}{HTML}{676156}
+
+
+\begin{document}
+\begin{tikzpicture}[
+    comp/.style={draw=Black90, thick, minimum width=2.0cm, minimum height=0.6cm, align=center, font=\scriptsize},
+    arr/.style={-{Stealth[length=2mm]}, thick, color=Black70},
+    every node/.style={font=\scriptsize}
+]
+
+\node[comp, fill=Atlantic!15] (cov) {Coverage\\$w_c = 1.0$};
+\node[comp, fill=Congaree!15, below=0.25cm of cov] (info) {Information Gain\\$w_i = 0.5$};
+\node[comp, fill=Horseshoe!15, below=0.25cm of info] (energy) {Energy Efficiency\\$w_e = 0.3$};
+\node[comp, fill=Rose!15, below=0.25cm of energy] (safe) {Safety Margin\\$w_s = 2.0$};
+\node[comp, fill=Honeycomb!15, below=0.25cm of safe] (mission) {Mission Complete\\$w_m = 1.0$};
+
+\node[comp, fill=Garnet!10, right=2.5cm of energy, minimum width=2.4cm, minimum height=1.2cm] (total) {Composite\\Reward $r_t$};
+
+\draw[arr] (cov.east) -- (total.west |- cov.east);
+\draw[arr] (info.east) -- (total.west |- info.east);
+\draw[arr] (energy.east) -- (total);
+\draw[arr] (safe.east) -- (total.west |- safe.east);
+\draw[arr] (mission.east) -- (total.west |- mission.east);
+
+\end{tikzpicture}
+\end{document}

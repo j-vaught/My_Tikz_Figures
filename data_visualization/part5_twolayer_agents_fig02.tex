@@ -1,0 +1,136 @@
+% Source: graduate-coursework/Research/Intro_to_Agents/handouts/Part5_TwoLayer_Agents.tex
+
+\documentclass[border=4pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{lmodern}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, fit, calc, backgrounds}
+
+\definecolor{UofSCGarnet}{HTML}{73000a}
+\definecolor{UofSCBlack}{HTML}{000000}
+\definecolor{UofSCWhite}{HTML}{ffffff}
+\definecolor{UofSCRose}{HTML}{CC2E40}
+\definecolor{UofSCAtlantic}{HTML}{466A9F}
+\definecolor{UofSCCongaree}{HTML}{1F414D}
+\definecolor{UofSCHorseshoe}{HTML}{65780B}
+\definecolor{UofSCGrass}{HTML}{CED318}
+\definecolor{UofSCHoneycomb}{HTML}{A49137}
+\definecolor{UofSC90Black}{HTML}{363636}
+\definecolor{UofSC70Black}{HTML}{5C5C5C}
+\definecolor{UofSC50Black}{HTML}{A2A2A2}
+\definecolor{UofSCWarmGrey}{HTML}{676156}
+\definecolor{UofSCSandstorm}{HTML}{FFF2E3}
+\definecolor{UofSCDarkGarnet}{HTML}{570008}
+\definecolor{UofSCAzalea}{HTML}{844247}
+
+\tikzset{
+    % Box styles - all sharp corners
+    orchestrator/.style={
+        rectangle,
+        draw=UofSCGarnet,
+        fill=UofSCGarnet!10,
+        line width=1.5pt,
+        minimum width=4cm,
+        minimum height=1.2cm,
+        align=center,
+        font=\bfseries
+    },
+    worker/.style={
+        rectangle,
+        draw=UofSCAtlantic,
+        fill=UofSCAtlantic!10,
+        line width=1pt,
+        minimum width=2cm,
+        minimum height=0.9cm,
+        align=center
+    },
+    task/.style={
+        rectangle,
+        draw=UofSCCongaree,
+        fill=UofSCCongaree!10,
+        line width=1pt,
+        minimum width=1.8cm,
+        minimum height=0.8cm,
+        align=center
+    },
+    process/.style={
+        rectangle,
+        draw=UofSCBlack,
+        fill=UofSCWhite,
+        line width=1pt,
+        minimum width=3cm,
+        minimum height=0.8cm,
+        align=center
+    },
+    result/.style={
+        rectangle,
+        draw=UofSCHorseshoe,
+        fill=UofSCHorseshoe!10,
+        line width=1pt,
+        minimum width=2.5cm,
+        minimum height=0.8cm,
+        align=center
+    },
+    decision/.style={
+        diamond,
+        draw=UofSCGarnet,
+        fill=UofSCGarnet!10,
+        line width=1pt,
+        minimum width=2cm,
+        minimum height=1cm,
+        align=center,
+        aspect=2
+    },
+    % Arrow styles - straight lines only
+    arrow/.style={
+        ->,
+        >=Stealth,
+        line width=1pt,
+        draw=UofSCBlack
+    },
+    thickarrow/.style={
+        ->,
+        >=Stealth,
+        line width=1.5pt,
+        draw=UofSCGarnet
+    },
+    dashedarrow/.style={
+        ->,
+        >=Stealth,
+        line width=1pt,
+        draw=UofSC70Black,
+        dashed
+    }
+}
+
+\begin{document}
+\begin{tikzpicture}[scale=0.75, transform shape]
+    % Planning box
+    \node[process, minimum width=4.5cm, fill=UofSCGarnet!10] (plan) at (0,4) {\textbf{1. PLANNING}};
+    \node[anchor=west, font=\scriptsize] at (-2,3.5) {Decompose goals into tasks};
+    \node[anchor=west, font=\scriptsize] at (-2,3.2) {Analyze requirements};
+    \node[anchor=west, font=\scriptsize] at (-2,2.9) {Identify dependencies};
+
+    % Distribution box
+    \node[process, minimum width=4.5cm, fill=UofSCAtlantic!10] (dist) at (0,2) {\textbf{2. TASK DISTRIBUTION}};
+    \node[anchor=west, font=\scriptsize] at (-2,1.5) {Route work to agents};
+    \node[anchor=west, font=\scriptsize] at (-2,1.2) {Skill matching};
+
+    % Coordination box
+    \node[process, minimum width=4.5cm, fill=UofSCCongaree!10] (coord) at (0,0) {\textbf{3. COORDINATION}};
+    \node[anchor=west, font=\scriptsize] at (-2,-0.5) {Manage concurrency};
+    \node[anchor=west, font=\scriptsize] at (-2,-0.8) {Track dependencies};
+
+    % Synthesis box
+    \node[process, minimum width=4.5cm, fill=UofSCHorseshoe!10] (synth) at (0,-2) {\textbf{4. SYNTHESIS}};
+    \node[anchor=west, font=\scriptsize] at (-2,-2.5) {Aggregate results};
+    \node[anchor=west, font=\scriptsize] at (-2,-2.8) {Decision making};
+
+    % Arrows
+    \draw[arrow] (plan) -- (dist);
+    \draw[arrow] (dist) -- (coord);
+    \draw[arrow] (coord) -- (synth);
+\end{tikzpicture}
+\end{document}

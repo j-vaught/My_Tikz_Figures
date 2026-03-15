@@ -1,0 +1,25 @@
+% Source: Code/vrifa/presentation.tex
+
+\documentclass[border=4pt]{standalone}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, fit, calc}
+
+\definecolor{garnet}{HTML}{73000a}
+\definecolor{darkgarnet}{HTML}{570008}
+\definecolor{atlantic}{HTML}{466A9F}
+\definecolor{congaree}{HTML}{1F414D}
+\definecolor{horseshoe}{HTML}{65780B}
+\definecolor{honeycomb}{HTML}{A49137}
+\definecolor{gray90}{HTML}{363636}
+\definecolor{gray70}{HTML}{5C5C5C}
+\definecolor{gray50}{HTML}{A2A2A2}
+
+\begin{document}
+\begin{tikzpicture}[remember picture, overlay]
+    \draw[garnet, line width=3pt]
+        ([shift={(0.3cm,-0.3cm)}]current page.north west) rectangle
+        ([shift={(-0.3cm,0.3cm)}]current page.south east);
+\end{tikzpicture}
+\end{document}

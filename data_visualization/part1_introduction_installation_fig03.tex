@@ -1,0 +1,129 @@
+% Source: graduate-coursework/Research/Intro_to_Agents/handouts/Part1_Introduction_Installation.tex
+
+\documentclass[border=4pt]{standalone}
+\usepackage{amsmath,amssymb}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{lmodern}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usetikzlibrary{shapes.geometric,arrows.meta,positioning,fit,backgrounds,calc}
+
+\definecolor{Garnet}{HTML}{73000A}
+\definecolor{DarkGarnet}{HTML}{570008}
+\definecolor{Rose}{HTML}{CC2E40}
+\definecolor{Atlantic}{HTML}{466A9F}
+\definecolor{Congaree}{HTML}{1F414D}
+\definecolor{Horseshoe}{HTML}{65780B}
+\definecolor{Grass}{HTML}{CED318}
+\definecolor{Honeycomb}{HTML}{A49137}
+\definecolor{Black90}{HTML}{363636}
+\definecolor{Black70}{HTML}{5C5C5C}
+\definecolor{Black50}{HTML}{A2A2A2}
+\definecolor{WarmGrey}{HTML}{676156}
+\definecolor{Sandstorm}{HTML}{FFF2E3}
+\definecolor{Azalea}{HTML}{844247}
+
+\tikzset{
+    % Sharp corners, no rounded edges
+    agentbox/.style={
+        rectangle,
+        draw=Garnet,
+        fill=white,
+        thick,
+        minimum width=4cm,
+        minimum height=1cm,
+        align=center,
+        font=\small
+    },
+    agentboxfill/.style={
+        rectangle,
+        draw=Garnet,
+        fill=Sandstorm,
+        thick,
+        minimum width=4cm,
+        minimum height=1cm,
+        align=center,
+        font=\small
+    },
+    toolbox/.style={
+        rectangle,
+        draw=Atlantic,
+        fill=white,
+        thick,
+        minimum width=2.5cm,
+        minimum height=0.8cm,
+        align=center,
+        font=\scriptsize
+    },
+    categorybox/.style={
+        rectangle,
+        draw=Congaree,
+        fill=Sandstorm,
+        thick,
+        minimum width=3.5cm,
+        minimum height=0.7cm,
+        align=center,
+        font=\small
+    },
+    arrow/.style={
+        ->,
+        >=stealth,
+        thick,
+        color=Garnet
+    },
+    dashedarrow/.style={
+        ->,
+        >=stealth,
+        dashed,
+        thick,
+        color=Atlantic
+    }
+}
+
+\begin{document}
+\begin{tikzpicture}[
+            node distance=0.6cm,
+            scale=0.7,
+            transform shape,
+            decision/.style={agentboxfill, minimum width=7cm, font=\small},
+            answer/.style={toolbox, minimum width=4cm, font=\scriptsize}
+        ]
+            \node[decision] (q) {\textbf{What's your primary workflow?}};
+
+            \node[answer, below left=0.8cm and 1cm of q] (vscode) {
+                ``I mostly code in VS Code''\\
+                $\rightarrow$ GitHub Copilot or Cline
+            };
+
+            \node[answer, below=0.8cm of q] (powerful) {
+                ``One powerful tool for all''\\
+                $\rightarrow$ Claude Code
+            };
+
+            \node[answer, below right=0.8cm and 1cm of q] (opensource) {
+                ``Stay open-source/offline''\\
+                $\rightarrow$ Aider + Ollama
+            };
+
+            \node[answer, below=0.6cm of vscode] (huge) {
+                ``Huge codebase (1M+ lines)''\\
+                $\rightarrow$ Gemini CLI
+            };
+
+            \node[answer, below=0.6cm of powerful] (ide) {
+                ``Complete IDE experience''\\
+                $\rightarrow$ Cursor or Windsurf
+            };
+
+            \node[answer, below=0.6cm of opensource] (ecosystem) {
+                ``OpenAI/AWS ecosystem''\\
+                $\rightarrow$ Codex CLI or Amazon Q
+            };
+
+            % Arrows
+            \draw[arrow] (q.south) -- ++(0,-0.2) -| (vscode.north);
+            \draw[arrow] (q.south) -- (powerful.north);
+            \draw[arrow] (q.south) -- ++(0,-0.2) -| (opensource.north);
+        \end{tikzpicture}
+\end{document}

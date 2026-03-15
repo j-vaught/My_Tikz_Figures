@@ -1,0 +1,33 @@
+% Source: graduate-coursework/Prior_Semesters/Fa24/EMCH367/assignments/hw1/hw1.tex
+
+\documentclass[border=4pt]{standalone}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{xcolor}
+
+\begin{document}
+\begin{tikzpicture}[scale=0.4]
+		% Draw the circle at (0,0) with radius 1 and label it as the mass m_2
+		\draw[thick] (0,0) circle (1);
+		\node at (0,0) {$m_2$};
+				
+		% Draw thick lines from (-5,0) to (-1,0) and (1,0) to (5,0)
+		\draw[thick] (-5,0) -- (-1,0);
+		\draw[thick] (1,0) -- (5,0);
+				
+		% Draw arrows with labels
+		\draw[->] (-4,0) -- (-4,5); % Vertical arrow up from (-4,0)
+		\node[left] at (-4,2.5) {$F_{k1} = k_1 (x_i - x_o)$};
+				
+		\draw[->] (-4.5,0) -- (-4.5,-5); % Vertical arrow down from (-4.5,0)
+		\node[left] at (-4.5,-2.5) {$F_{k2} = k_2 x_o$};
+				
+		\draw[->] (4,0) -- (4,5); % Vertical arrow up from (4,0)
+		\node[right] at (4,2.5) {$F_{b1} = b_1 (\dot{x}_i - \dot{x}_o)$};
+				
+		\draw[->] (4.5,0) -- (4.5,-5); % Vertical arrow down from (4.5,0)
+		\node[right] at (4.5,-2.5) {$F_{b2} = b_2 \dot{x}_o$};
+	\end{tikzpicture}
+\end{document}

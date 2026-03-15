@@ -1,0 +1,114 @@
+% Source: graduate-coursework/Research/Intro_to_Agents/handouts/Part3_Basic_Usage.tex
+
+\documentclass[border=4pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{lmodern}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usetikzlibrary{shapes.geometric,arrows.meta,positioning,calc,fit,backgrounds,decorations.pathreplacing}
+
+\definecolor{UofSCGarnet}{HTML}{73000a}
+\definecolor{UofSCBlack}{HTML}{000000}
+\definecolor{UofSCWhite}{HTML}{ffffff}
+\definecolor{UofSCRose}{HTML}{CC2E40}
+\definecolor{UofSCAtlantic}{HTML}{466A9F}
+\definecolor{UofSCCongaree}{HTML}{1F414D}
+\definecolor{UofSCHorseshoe}{HTML}{65780B}
+\definecolor{UofSCGrass}{HTML}{CED318}
+\definecolor{UofSCHoneycomb}{HTML}{A49137}
+\definecolor{UofSC90Black}{HTML}{363636}
+\definecolor{UofSC70Black}{HTML}{5C5C5C}
+\definecolor{UofSC50Black}{HTML}{A2A2A2}
+\definecolor{UofSCWarmGrey}{HTML}{676156}
+\definecolor{UofSCSandstorm}{HTML}{FFF2E3}
+\definecolor{UofSCDarkGarnet}{HTML}{570008}
+\definecolor{UofSCAzalea}{HTML}{844247}
+
+\tikzset{
+    % Sharp-cornered boxes
+    process/.style={
+        rectangle,
+        draw=UofSCBlack,
+        thick,
+        fill=UofSCWhite,
+        text=UofSCBlack,
+        minimum width=3cm,
+        minimum height=0.8cm,
+        align=center,
+        font=\small
+    },
+    process highlight/.style={
+        process,
+        fill=UofSCGarnet,
+        text=UofSCWhite
+    },
+    process secondary/.style={
+        process,
+        fill=UofSCAtlantic,
+        text=UofSCWhite
+    },
+    process tertiary/.style={
+        process,
+        fill=UofSCCongaree,
+        text=UofSCWhite
+    },
+    arrow/.style={
+        ->,
+        >=Stealth,
+        thick,
+        color=UofSCBlack
+    },
+    arrow garnet/.style={
+        arrow,
+        color=UofSCGarnet
+    },
+    label box/.style={
+        rectangle,
+        draw=none,
+        fill=UofSCSandstorm,
+        text=UofSCBlack,
+        font=\scriptsize,
+        align=center
+    },
+    decision/.style={
+        diamond,
+        draw=UofSCBlack,
+        thick,
+        fill=UofSCHoneycomb,
+        text=UofSCBlack,
+        minimum width=2cm,
+        minimum height=1cm,
+        align=center,
+        font=\small,
+        aspect=2
+    }
+}
+
+\begin{document}
+\begin{tikzpicture}[node distance=0.4cm, scale=0.85, transform shape]
+        % IDE Window
+        \node[rectangle, draw=UofSCBlack, thick, fill=UofSCSandstorm,
+              minimum width=10cm, minimum height=5cm] (window) {};
+        \node[anchor=north west, font=\footnotesize\bfseries] at (window.north west)
+              {\hspace{0.2cm}CURSOR IDE};
+
+        % Commands
+        \node[process, minimum width=8cm, below=0.3cm of window.north] (cmd1)
+              {\texttt{CMD + K}: Generate code inline};
+        \node[process, minimum width=8cm, below=of cmd1] (cmd2)
+              {\texttt{CMD + L}: Generate longer code blocks};
+        \node[process, minimum width=8cm, below=of cmd2] (cmd3)
+              {\texttt{CMD + Enter}: Codebase context};
+        \node[process secondary, minimum width=8cm, below=of cmd3] (cmd4)
+              {\texttt{@ Rules}: Define custom guidelines};
+
+        % Descriptions
+        \node[label box, right=0.2cm of cmd1.east, anchor=west, text width=3cm]
+              {\scriptsize Reference files with @file};
+        \node[label box, right=0.2cm of cmd2.east, anchor=west, text width=3cm]
+              {\scriptsize Multi-file aware};
+        \node[label box, right=0.2cm of cmd3.east, anchor=west, text width=3cm]
+              {\scriptsize Learns your style};
+    \end{tikzpicture}
+\end{document}

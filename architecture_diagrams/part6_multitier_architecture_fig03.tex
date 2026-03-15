@@ -1,0 +1,145 @@
+% Source: graduate-coursework/Research/Intro_to_Agents/handouts/Part6_MultiTier_Architecture.tex
+
+\documentclass[border=4pt]{standalone}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{lmodern}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usetikzlibrary{shapes,arrows.meta,positioning,calc,fit,backgrounds,chains,decorations.pathreplacing}
+
+\definecolor{UofSCGarnet}{HTML}{73000a}
+\definecolor{UofSCBlack}{HTML}{000000}
+\definecolor{UofSCWhite}{HTML}{ffffff}
+\definecolor{UofSCRose}{HTML}{CC2E40}
+\definecolor{UofSCAtlantic}{HTML}{466A9F}
+\definecolor{UofSCCongaree}{HTML}{1F414D}
+\definecolor{UofSCHorseshoe}{HTML}{65780B}
+\definecolor{UofSCGrass}{HTML}{CED318}
+\definecolor{UofSCHoneycomb}{HTML}{A49137}
+\definecolor{UofSC90Black}{HTML}{363636}
+\definecolor{UofSC70Black}{HTML}{5C5C5C}
+\definecolor{UofSC50Black}{HTML}{A2A2A2}
+\definecolor{UofSCWarmGrey}{HTML}{676156}
+\definecolor{UofSCSandstorm}{HTML}{FFF2E3}
+\definecolor{UofSCDarkGarnet}{HTML}{570008}
+\definecolor{UofSCAzalea}{HTML}{844247}
+
+\tikzset{
+    % Base node style
+    basenode/.style={
+        draw=UofSCBlack,
+        fill=UofSCWhite,
+        line width=0.8pt,
+        minimum height=0.8cm,
+        minimum width=2cm,
+        align=center,
+        font=\small
+    },
+    % Strategy layer style
+    strategynode/.style={
+        basenode,
+        fill=UofSCGarnet,
+        text=UofSCWhite,
+        minimum height=1cm,
+        minimum width=4cm
+    },
+    % Planning layer style
+    planningnode/.style={
+        basenode,
+        fill=UofSCAtlantic,
+        text=UofSCWhite,
+        minimum height=0.9cm,
+        minimum width=3.5cm
+    },
+    % Execution layer style
+    execnode/.style={
+        basenode,
+        fill=UofSCCongaree,
+        text=UofSCWhite,
+        minimum height=0.8cm,
+        minimum width=2.5cm
+    },
+    % Generic box
+    genericbox/.style={
+        basenode,
+        minimum width=2.8cm
+    },
+    % Arrow styles (straight lines only)
+    myarrow/.style={
+        ->,
+        >=Stealth,
+        line width=0.8pt,
+        draw=UofSCBlack
+    },
+    % Bidirectional arrow
+    biarrow/.style={
+        <->,
+        >=Stealth,
+        line width=0.8pt,
+        draw=UofSCBlack
+    },
+    % Phase box style
+    phasebox/.style={
+        basenode,
+        minimum width=3.5cm,
+        minimum height=1.2cm,
+        font=\small\bfseries
+    },
+    % Small box
+    smallbox/.style={
+        basenode,
+        minimum width=1.5cm,
+        minimum height=0.6cm,
+        font=\scriptsize
+    },
+    % Leader node
+    leadernode/.style={
+        basenode,
+        fill=UofSCGarnet,
+        text=UofSCWhite,
+        minimum width=3cm,
+        minimum height=1cm
+    },
+    % Worker node
+    workernode/.style={
+        basenode,
+        fill=UofSC70Black,
+        text=UofSCWhite,
+        minimum width=1.2cm,
+        minimum height=0.7cm,
+        font=\scriptsize
+    }
+}
+
+\begin{document}
+\begin{tikzpicture}[scale=0.7, transform shape]
+                % Main agent
+                \node[strategynode,minimum width=5cm] (main) at (0,4) {Main Agent\\(Orchestration)};
+
+                % Level 2
+                \node[planningnode,minimum width=1.8cm] (a) at (-2.5,2.2) {Agent A};
+                \node[planningnode,minimum width=1.8cm] (b) at (0,2.2) {Agent B};
+                \node[planningnode,minimum width=1.8cm] (c) at (2.5,2.2) {Agent C};
+
+                % Level 3
+                \node[execnode,minimum width=0.9cm,font=\tiny] (t1) at (-3,0.7) {T1};
+                \node[execnode,minimum width=0.9cm,font=\tiny] (t2) at (-2,0.7) {T2};
+                \node[execnode,minimum width=0.9cm,font=\tiny] (t3) at (-0.5,0.7) {T3};
+                \node[execnode,minimum width=0.9cm,font=\tiny] (t4) at (0.5,0.7) {T4};
+                \node[execnode,minimum width=0.9cm,font=\tiny] (t5) at (2,0.7) {T5};
+                \node[execnode,minimum width=0.9cm,font=\tiny] (t6) at (3,0.7) {T6};
+
+                % Arrows
+                \draw[myarrow] (main) -- (a);
+                \draw[myarrow] (main) -- (b);
+                \draw[myarrow] (main) -- (c);
+                \draw[myarrow] (a) -- (t1);
+                \draw[myarrow] (a) -- (t2);
+                \draw[myarrow] (b) -- (t3);
+                \draw[myarrow] (b) -- (t4);
+                \draw[myarrow] (c) -- (t5);
+                \draw[myarrow] (c) -- (t6);
+            \end{tikzpicture}
+\end{document}

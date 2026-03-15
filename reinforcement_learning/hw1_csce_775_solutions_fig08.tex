@@ -1,0 +1,62 @@
+% Source: graduate-coursework/Sp26/CSCE775/HW1/HW1_CSCE_775_solutions.tex
+
+\documentclass[border=4pt]{standalone}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{xcolor}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, automata, calc, decorations.markings, patterns}
+
+\definecolor{USC_Garnet}{HTML}{73000A}
+\definecolor{USC_Sandstorm}{HTML}{FFF2E3}
+\definecolor{USC_Black90}{HTML}{363636}
+\definecolor{USC_Black70}{HTML}{5C5C5C}
+\definecolor{USC_Black50}{HTML}{A2A2A2}
+\definecolor{USC_Black10}{HTML}{ECECEC}
+\definecolor{USC_Honeycomb}{HTML}{A49137}
+\definecolor{USC_Horseshoe}{HTML}{65780B}
+\definecolor{USC_Atlantic}{HTML}{466A9F}
+\definecolor{USC_Congaree}{HTML}{1F414D}
+\definecolor{USC_Rose}{HTML}{CC2E40}
+
+
+\begin{document}
+\begin{tikzpicture}[
+    >=Stealth,
+    scale=0.85,
+    every state/.style={
+        fill=white,
+        draw=USC_Garnet,
+        line width=2pt,
+        text=black,
+        minimum size=1.6cm,
+        font=\bfseries\Large
+    },
+    every edge/.style={draw=black, line width=1.2pt, ->, >=Stealth},
+    prob/.style={font=\small\bfseries, fill=white, inner sep=2pt},
+    term/.style={
+        fill=USC_Atlantic!15,
+        draw=USC_Atlantic,
+        line width=2pt,
+        text=black,
+        minimum size=1.6cm,
+        font=\bfseries\Large
+    }
+]
+
+\node[state] (A) at (0, 0) {$A$};
+\node[state] (B) at (6, 0) {$B$};
+\node[term] (BT) at (12, 0) {$B_T$};
+
+\path (A) edge[loop above, looseness=5, out=120, in=60] node[prob, above=5pt] {$L: r=-1$} (A);
+\path (A) edge[bend left=15] node[prob, above=3pt] {$R: r=+2$} (B);
+
+\path (B) edge[bend left=15] node[prob, below=3pt] {$L: r=0$} (A);
+\path (B) edge node[prob, above=3pt] {$R: r=+6$} (BT);
+
+\end{tikzpicture}
+\end{document}

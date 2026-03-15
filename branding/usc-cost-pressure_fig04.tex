@@ -1,0 +1,55 @@
+% Source: Code/CommonSenseCarolina/latex/usc-cost-pressure.tex
+% Description: Total cost of attendance tracked below CPI inflation through 2022--23 but accelerated sharply in 2023--24 \citep{CollegeTuitionCompare2025, USCFinAid2025
+
+\documentclass[border=4pt]{standalone}
+\usepackage{graphicx}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{xcolor}
+\pgfplotsset{compat=1.18}
+
+\definecolor{Garnet}{HTML}{73000A}
+\definecolor{Atlantic}{HTML}{466A9F}
+\definecolor{Congaree}{HTML}{1F414D}
+\definecolor{Rose}{HTML}{CC2E40}
+\definecolor{Black90}{HTML}{363636}
+\definecolor{Black50}{HTML}{A2A2A2}
+\definecolor{Black10}{HTML}{ECECEC}
+
+
+\begin{document}
+\begin{tikzpicture}
+\begin{axis}[
+    width=\textwidth,
+    height=7cm,
+    xlabel={Academic Year},
+    ylabel={Total Cost of Attendance (\$)},
+    xlabel style={font=\small},
+    ylabel style={font=\small},
+    xticklabel style={font=\footnotesize, rotate=45, anchor=east},
+    yticklabel style={font=\small},
+    symbolic x coords={2015-16,2016-17,2017-18,2018-19,2019-20,2020-21,2021-22,2022-23,2023-24,2024-25},
+    xtick=data,
+    ymin=42000, ymax=62000,
+    ymajorgrids=true,
+    grid style={color=Black10},
+    axis line style={color=Black90},
+    tick style={color=Black90},
+    legend style={at={(0.02,0.98)}, anchor=north west, font=\small, draw=Black50},
+    title={\textbf{Total Cost of Attendance (Out-of-State, On-Campus)}},
+    title style={font=\normalsize, at={(0.5,1.05)}},
+]
+\addplot[color=Atlantic, thick, mark=square*, mark size=2] coordinates {
+    (2015-16,45387) (2016-17,45716) (2017-18,47162) (2018-19,48983)
+    (2019-20,50069) (2020-21,50361) (2021-22,50389) (2022-23,51179)
+    (2023-24,54223) (2024-25,55800)
+};
+\addplot[color=Black50, thick, dashed, mark=none] coordinates {
+    (2015-16,45387) (2016-17,46658) (2017-18,47964) (2018-19,49307)
+    (2019-20,50688) (2020-21,52107) (2021-22,53566) (2022-23,55066)
+    (2023-24,56608) (2024-25,58193)
+};
+\legend{Actual COA, CPI Inflation Baseline}
+\end{axis}
+\end{tikzpicture}
+\end{document}

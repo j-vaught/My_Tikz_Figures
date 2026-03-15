@@ -1,0 +1,105 @@
+% Source: graduate-coursework/Research/Intro_to_Agents/handouts/Part4_Planning_Workflow.tex
+
+\documentclass[border=4pt]{standalone}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc, fit, backgrounds}
+
+\definecolor{UofSCGarnet}{HTML}{73000A}
+\definecolor{UofSCBlack}{HTML}{000000}
+\definecolor{UofSCWhite}{HTML}{FFFFFF}
+\definecolor{UofSCAtlantic}{HTML}{466A9F}
+\definecolor{UofSCCongaree}{HTML}{1F414D}
+\definecolor{UofSCHorseshoe}{HTML}{65780B}
+\definecolor{UofSCRose}{HTML}{CC2E40}
+\definecolor{UofSCDarkGarnet}{HTML}{570008}
+\definecolor{UofSC90Black}{HTML}{363636}
+\definecolor{UofSC70Black}{HTML}{5C5C5C}
+\definecolor{UofSC50Black}{HTML}{A2A2A2}
+
+\tikzset{
+    box/.style={
+        draw=UofSCBlack,
+        fill=#1,
+        minimum width=2.5cm,
+        minimum height=0.8cm,
+        text=UofSCWhite,
+        font=\small\bfseries,
+        align=center,
+        inner sep=4pt
+    },
+    box/.default=UofSCGarnet,
+    lightbox/.style={
+        draw=UofSCBlack,
+        fill=UofSCWhite,
+        minimum width=2.5cm,
+        minimum height=0.8cm,
+        text=UofSCBlack,
+        font=\small,
+        align=center,
+        inner sep=4pt
+    },
+    arrow/.style={
+        ->,
+        >=Stealth,
+        thick,
+        UofSCBlack
+    },
+    bigarrow/.style={
+        ->,
+        >=Stealth,
+        line width=1.5pt,
+        UofSCGarnet
+    },
+    phase/.style={
+        draw=UofSCBlack,
+        fill=#1,
+        minimum width=3cm,
+        minimum height=1cm,
+        text=UofSCWhite,
+        font=\bfseries,
+        align=center
+    },
+    phase/.default=UofSCGarnet,
+    subphase/.style={
+        draw=UofSC70Black,
+        fill=UofSCWhite,
+        minimum width=2.8cm,
+        minimum height=0.6cm,
+        text=UofSCBlack,
+        font=\scriptsize,
+        align=center
+    },
+    cyclebox/.style={
+        draw=UofSCBlack,
+        line width=1.5pt,
+        fill=#1,
+        minimum width=2cm,
+        minimum height=1.2cm,
+        text=UofSCWhite,
+        font=\bfseries,
+        align=center
+    },
+    cyclebox/.default=UofSCGarnet
+}
+
+\begin{document}
+\begin{tikzpicture}[scale=0.7, transform shape, node distance=0.8cm]
+                \node[box=UofSC70Black, minimum width=4cm] (c1) at (0,4) {1. Developer Provides Context};
+                \node[box=UofSCGarnet, minimum width=4cm] (c2) at (0,2.8) {2. Agent Analyzes};
+                \node[box=UofSCAtlantic, minimum width=4cm] (c3) at (0,1.6) {3. Agent Proposes Plan};
+                \node[box=UofSCCongaree, minimum width=4cm] (c4) at (0,0.4) {4. Developer Reviews};
+                \node[box=UofSCHorseshoe, minimum width=4cm] (c5) at (0,-0.8) {5. Agent Refines};
+                \node[box=UofSCGarnet, minimum width=4cm] (c6) at (0,-2) {6. Agent Implements};
+
+                \draw[arrow] (c1) -- (c2);
+                \draw[arrow] (c2) -- (c3);
+                \draw[arrow] (c3) -- (c4);
+                \draw[arrow] (c4) -- (c5);
+                \draw[arrow] (c5) -- (c6);
+
+                % Feedback loop
+                \draw[arrow, UofSCRose] (c4.east) -- ++(0.8,0) -- ++(0,1.2) -- (c3.east);
+            \end{tikzpicture}
+\end{document}

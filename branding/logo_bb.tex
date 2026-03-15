@@ -1,0 +1,36 @@
+% Source: StudentGovernmentRepo/assets/logos/logo_BB.tex
+\documentclass[border=0pt]{standalone}
+\usepackage{tikz}
+\usepackage{fontspec}
+\usepackage{calc}
+
+\setmainfont{Georgia}[
+  BoldFont = Georgia Bold,
+  Scale = 1.0
+]
+
+\definecolor{black}{HTML}{000000}
+
+\newsavebox{\csbox}
+
+\begin{document}
+
+% Measure "COMMON SENSE" width
+\savebox{\csbox}{\fontsize{28}{30}\selectfont\bfseries COMMON SENSE}
+
+\begin{tikzpicture}
+  % Top black rule — centered, extending beyond text width
+  \fill[black] (-\wd\csbox/2 - 15pt, 1.75) rectangle (\wd\csbox/2 + 15pt, 1.87);
+
+  % COMMON SENSE text — centered
+  \node[anchor=center, font=\fontsize{28}{30}\selectfont\bfseries, text=black]
+    at (0, 1.15) {COMMON SENSE};
+
+  % CAROLINA text — stretched to match COMMON SENSE width, centered
+  \node[anchor=center, font=\bfseries, text=black]
+    at (0, 0.05) {\resizebox{\wd\csbox}{!}{\fontsize{28}{30}\selectfont CAROLINA}};
+
+  % Bottom black rule — centered, with space below CAROLINA
+  \fill[black] (-\wd\csbox/2 - 15pt, -0.78) rectangle (\wd\csbox/2 + 15pt, -0.66);
+\end{tikzpicture}
+\end{document}

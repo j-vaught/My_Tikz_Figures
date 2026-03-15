@@ -1,0 +1,141 @@
+% Source: graduate-coursework/Research/Intro_to_Agents/handouts/Part5_TwoLayer_Agents.tex
+
+\documentclass[border=4pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{lmodern}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, fit, calc, backgrounds}
+
+\definecolor{UofSCGarnet}{HTML}{73000a}
+\definecolor{UofSCBlack}{HTML}{000000}
+\definecolor{UofSCWhite}{HTML}{ffffff}
+\definecolor{UofSCRose}{HTML}{CC2E40}
+\definecolor{UofSCAtlantic}{HTML}{466A9F}
+\definecolor{UofSCCongaree}{HTML}{1F414D}
+\definecolor{UofSCHorseshoe}{HTML}{65780B}
+\definecolor{UofSCGrass}{HTML}{CED318}
+\definecolor{UofSCHoneycomb}{HTML}{A49137}
+\definecolor{UofSC90Black}{HTML}{363636}
+\definecolor{UofSC70Black}{HTML}{5C5C5C}
+\definecolor{UofSC50Black}{HTML}{A2A2A2}
+\definecolor{UofSCWarmGrey}{HTML}{676156}
+\definecolor{UofSCSandstorm}{HTML}{FFF2E3}
+\definecolor{UofSCDarkGarnet}{HTML}{570008}
+\definecolor{UofSCAzalea}{HTML}{844247}
+
+\tikzset{
+    % Box styles - all sharp corners
+    orchestrator/.style={
+        rectangle,
+        draw=UofSCGarnet,
+        fill=UofSCGarnet!10,
+        line width=1.5pt,
+        minimum width=4cm,
+        minimum height=1.2cm,
+        align=center,
+        font=\bfseries
+    },
+    worker/.style={
+        rectangle,
+        draw=UofSCAtlantic,
+        fill=UofSCAtlantic!10,
+        line width=1pt,
+        minimum width=2cm,
+        minimum height=0.9cm,
+        align=center
+    },
+    task/.style={
+        rectangle,
+        draw=UofSCCongaree,
+        fill=UofSCCongaree!10,
+        line width=1pt,
+        minimum width=1.8cm,
+        minimum height=0.8cm,
+        align=center
+    },
+    process/.style={
+        rectangle,
+        draw=UofSCBlack,
+        fill=UofSCWhite,
+        line width=1pt,
+        minimum width=3cm,
+        minimum height=0.8cm,
+        align=center
+    },
+    result/.style={
+        rectangle,
+        draw=UofSCHorseshoe,
+        fill=UofSCHorseshoe!10,
+        line width=1pt,
+        minimum width=2.5cm,
+        minimum height=0.8cm,
+        align=center
+    },
+    decision/.style={
+        diamond,
+        draw=UofSCGarnet,
+        fill=UofSCGarnet!10,
+        line width=1pt,
+        minimum width=2cm,
+        minimum height=1cm,
+        align=center,
+        aspect=2
+    },
+    % Arrow styles - straight lines only
+    arrow/.style={
+        ->,
+        >=Stealth,
+        line width=1pt,
+        draw=UofSCBlack
+    },
+    thickarrow/.style={
+        ->,
+        >=Stealth,
+        line width=1.5pt,
+        draw=UofSCGarnet
+    },
+    dashedarrow/.style={
+        ->,
+        >=Stealth,
+        line width=1pt,
+        draw=UofSC70Black,
+        dashed
+    }
+}
+
+\begin{document}
+\begin{tikzpicture}[scale=0.7, transform shape]
+    % Orchestrator to Worker
+    \node[orchestrator, minimum width=4cm] (orch1) at (-4.5,3) {ORCHESTRATOR};
+    \node[worker, minimum width=3cm] (work1) at (-4.5,-1) {WORKER};
+
+    \draw[thickarrow] (orch1) -- node[right, font=\scriptsize, align=left, xshift=3pt] {
+        \textbf{Sends:}\\
+        1. Task definition\\
+        2. Relevant context\\
+        3. Constraints\\
+        4. Output format
+    } (work1);
+
+    % Worker to Orchestrator
+    \node[worker, minimum width=3cm] (work2) at (4.5,3) {WORKER};
+    \node[orchestrator, minimum width=4cm] (orch2) at (4.5,-1) {ORCHESTRATOR};
+
+    \draw[thickarrow] (work2) -- node[right, font=\scriptsize, align=left, xshift=3pt] {
+        \textbf{Returns:}\\
+        1. Outcome status\\
+        2. Key findings\\
+        3. Confidence level\\
+        4. Recommendations
+    } (orch2);
+
+    % Divider
+    \draw[line width=2pt, UofSC50Black, dashed] (0,4) -- (0,-2);
+
+    % Labels
+    \node[font=\bfseries] at (-4.5,4) {Downward Flow};
+    \node[font=\bfseries] at (4.5,4) {Upward Flow};
+\end{tikzpicture}
+\end{document}

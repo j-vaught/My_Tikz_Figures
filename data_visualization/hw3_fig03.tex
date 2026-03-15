@@ -1,0 +1,37 @@
+% Source: graduate-coursework/Prior_Semesters/Fa25/EMCH501/HW3/HW3.tex
+% Description: Diagram of the string initially at rest with an external force increasing linearly along the length of the string.
+
+\documentclass[border=4pt]{standalone}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{xcolor}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, decorations.pathmorphing, patterns}
+
+\definecolor{USC_Garnet}{HTML}{73000A}
+\definecolor{USC_Sandstorm}{HTML}{FFF2E3}
+\definecolor{USC_Black90}{HTML}{565656}
+\definecolor{USC_Black10}{HTML}{ECECEC}
+\definecolor{USC_Honeycomb}{HTML}{65780B}
+
+\begin{document}
+\begin{tikzpicture}[scale=1.5, >=Stealth]
+    % Axis
+    \draw[->] (-0.5,0) -- (5.5,0) node[right] {$x$};
+    \draw[->] (0,-0.5) -- (0,2.5) node[above] {$u(x,t)$};
+    
+    % String Constraints
+    \draw[thick, color=USC_Garnet] (0,0) -- (5,0);
+    \fill[USC_Garnet] (0,0) circle (2pt) node[below left] {$x=0$};
+    \fill[USC_Garnet] (5,0) circle (2pt) node[below] {$x=L$};
+    
+    % Force Vectors (Proportional to x)
+    \foreach \x in {0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5} {
+        \draw[->, color=USC_Honeycomb, thick] (\x, 0.1) -- (\x, \x*0.4 + 0.1);
+    }
+    \node[color=USC_Honeycomb, anchor=west] at (5, 2) {Force $F(x) \propto x$};
+\end{tikzpicture}
+\end{document}

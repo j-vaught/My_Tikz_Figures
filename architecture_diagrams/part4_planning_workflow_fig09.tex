@@ -1,0 +1,112 @@
+% Source: graduate-coursework/Research/Intro_to_Agents/handouts/Part4_Planning_Workflow.tex
+
+\documentclass[border=4pt]{standalone}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc, fit, backgrounds}
+
+\definecolor{UofSCGarnet}{HTML}{73000A}
+\definecolor{UofSCBlack}{HTML}{000000}
+\definecolor{UofSCWhite}{HTML}{FFFFFF}
+\definecolor{UofSCAtlantic}{HTML}{466A9F}
+\definecolor{UofSCCongaree}{HTML}{1F414D}
+\definecolor{UofSCHorseshoe}{HTML}{65780B}
+\definecolor{UofSCRose}{HTML}{CC2E40}
+\definecolor{UofSCDarkGarnet}{HTML}{570008}
+\definecolor{UofSC90Black}{HTML}{363636}
+\definecolor{UofSC70Black}{HTML}{5C5C5C}
+\definecolor{UofSC50Black}{HTML}{A2A2A2}
+
+\tikzset{
+    box/.style={
+        draw=UofSCBlack,
+        fill=#1,
+        minimum width=2.5cm,
+        minimum height=0.8cm,
+        text=UofSCWhite,
+        font=\small\bfseries,
+        align=center,
+        inner sep=4pt
+    },
+    box/.default=UofSCGarnet,
+    lightbox/.style={
+        draw=UofSCBlack,
+        fill=UofSCWhite,
+        minimum width=2.5cm,
+        minimum height=0.8cm,
+        text=UofSCBlack,
+        font=\small,
+        align=center,
+        inner sep=4pt
+    },
+    arrow/.style={
+        ->,
+        >=Stealth,
+        thick,
+        UofSCBlack
+    },
+    bigarrow/.style={
+        ->,
+        >=Stealth,
+        line width=1.5pt,
+        UofSCGarnet
+    },
+    phase/.style={
+        draw=UofSCBlack,
+        fill=#1,
+        minimum width=3cm,
+        minimum height=1cm,
+        text=UofSCWhite,
+        font=\bfseries,
+        align=center
+    },
+    phase/.default=UofSCGarnet,
+    subphase/.style={
+        draw=UofSC70Black,
+        fill=UofSCWhite,
+        minimum width=2.8cm,
+        minimum height=0.6cm,
+        text=UofSCBlack,
+        font=\scriptsize,
+        align=center
+    },
+    cyclebox/.style={
+        draw=UofSCBlack,
+        line width=1.5pt,
+        fill=#1,
+        minimum width=2cm,
+        minimum height=1.2cm,
+        text=UofSCWhite,
+        font=\bfseries,
+        align=center
+    },
+    cyclebox/.default=UofSCGarnet
+}
+
+\begin{document}
+\begin{tikzpicture}[scale=0.85, transform shape]
+        % Matrix header
+        \node[box=UofSCGarnet, minimum width=11cm] at (0,3) {Planning Task Matrix};
+
+        % Matrix content
+        \node[lightbox, minimum width=11cm, minimum height=3.5cm, text width=10.5cm, font=\small] at (0,0.5) {
+            \begin{tabular}{l|cccc}
+            \textbf{Task} & \textbf{Claude} & \textbf{Cursor} & \textbf{Aider} & \textbf{Codex} \\
+            \hline
+            Understand codebase & Good & Good & Good & \textcolor{UofSCGarnet}{\textbf{Best}} \\
+            Find patterns & Good & Fair & Good & \textcolor{UofSCGarnet}{\textbf{Best}} \\
+            Explore alternatives & \textcolor{UofSCGarnet}{\textbf{Best}} & Fair & \textcolor{UofSCGarnet}{\textbf{Best}} & N/A \\
+            Architecture design & \textcolor{UofSCGarnet}{\textbf{Best}} & Fair & Good & N/A \\
+            Task decomposition & \textcolor{UofSCGarnet}{\textbf{Best}} & Fair & Good & N/A \\
+            Visual review & Fair & \textcolor{UofSCGarnet}{\textbf{Best}} & Fair & N/A \\
+            Quick iteration & Good & \textcolor{UofSCGarnet}{\textbf{Best}} & Good & N/A \\
+            \end{tabular}
+        };
+
+        % Recommendation
+        \node[lightbox, minimum width=11cm, minimum height=1.5cm, text width=10.5cm] at (0,-2.3) {
+            \textbf{Recommendation:} Codex for research $\rightarrow$ Claude Code for planning $\rightarrow$ Aider validation $\rightarrow$ Cursor/Claude implementation
+        };
+    \end{tikzpicture}
+\end{document}

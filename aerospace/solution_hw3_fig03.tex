@@ -1,0 +1,48 @@
+% Source: graduate-coursework/Prior_Semesters/Fa25/EMCH721/solution_hw3.tex
+
+\documentclass[border=4pt]{standalone}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{xcolor}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, decorations.pathmorphing, patterns, calc}
+
+\definecolor{USC_Garnet}{HTML}{73000A}
+\definecolor{USC_Sandstorm}{HTML}{FFF2E3}
+\definecolor{USC_Black90}{HTML}{565656}
+\definecolor{USC_Black10}{HTML}{ECECEC}
+\definecolor{USC_Honeycomb}{HTML}{65780B}
+
+\newcommand{\solutionframework}{%
+\subsection*{Solution Outline}
+\begin{stepbox}
+\textbf{Planned Steps}\\[0.5em]
+Outline your step-by-step approach here.
+\end{stepbox}
+\subsection*{MATLAB Implementation}
+\begin{codebox}
+Add MATLAB code or pseudocode here.
+\end{codebox}
+\subsection*{Results Summary}
+\begin{resultsbox}
+Summarize key intermediate and final results here.
+\end{resultsbox}
+}
+
+\begin{document}
+\begin{tikzpicture}[auto,>=Stealth,node distance=2.2cm,block/.style={draw,thick,rectangle,minimum height=1cm,minimum width=1.8cm},sum/.style={circle,draw,thick,inner sep=0pt,minimum size=7mm}]
+  \node[coordinate] (r) {};
+  \node[sum,right=0.9cm of r] (sum) {\scriptsize$+$};
+  \node[block,right=1.7cm of sum] (plant) {$G(s)$};
+  \node[coordinate,right=1.7cm of plant] (x) {};
+  \node[block,below=1.4cm of plant] (fb) {$K s$};
+  \draw[->] (r) -- node[pos=0.3,above] {$F(s)$} (sum);
+  \draw[->] (sum) -- node[pos=0.3,above] {$E(s)$} (plant);
+  \draw[->] (plant) -- node[pos=0.7,above] {$X(s)$} (x);
+  \draw[->] (x) |- (fb);
+  \draw[->] (fb) -| node[pos=0.97,left] {$B(s)$} node[pos=0.2,right] {$-$} (sum);
+\end{tikzpicture}
+\end{document}
