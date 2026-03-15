@@ -1,0 +1,24 @@
+# Build artifacts
+*.aux
+*.log
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+*.out
+*.toc
+*.nav
+*.snm
+*.vrb
+*.bbl
+*.blg
+*.run.xml
+*.bcf
+
+# OS files
+.DS_Store
+__pycache__/
+*.pyc
+
+# Editor files
+*.swp
+*~
