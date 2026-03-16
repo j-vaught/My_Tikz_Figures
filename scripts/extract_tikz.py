@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 """
-Extract all TikZ/PGFPlots figures from /Volumes/MacShare into standalone .tex files.
+Extract all TikZ/PGFPlots figures from a source directory into standalone .tex files.
+
+Set TIKZ_EXTRACT_ROOT to the directory to scan (defaults to two levels above this script).
+Set TIKZ_EXTRACT_OUTPUT to the output directory (defaults to the repo root).
 
 Categories:
-  A: Already standalone (has \documentclass{standalone})  -> copy with minor fixes
-  B: Fragment (no \documentclass, has tikzpicture/axis)   -> wrap in standalone shell
+  A: Already standalone (has \\documentclass{standalone})  -> copy with minor fixes
+  B: Fragment (no \\documentclass, has tikzpicture/axis)   -> wrap in standalone shell
   C: Embedded in larger doc (article/beamer/report)       -> extract each tikzpicture
 """
 
@@ -16,8 +19,8 @@ import json
 from pathlib import Path
 from collections import defaultdict
 
-ROOT = Path("/Volumes/MacShare")
-OUTPUT_DIR = ROOT / "My_Tikz_Figures"
+ROOT = Path(os.environ.get("TIKZ_EXTRACT_ROOT", Path(__file__).resolve().parent.parent.parent))
+OUTPUT_DIR = Path(os.environ.get("TIKZ_EXTRACT_OUTPUT", Path(__file__).resolve().parent.parent))
 STAGING = OUTPUT_DIR / "_staging"
 DATA_DIR = OUTPUT_DIR / "data"
 

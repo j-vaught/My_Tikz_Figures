@@ -1,5 +1,6 @@
 #!/bin/bash
 # Compile all standalone .tex files, log failures
+REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 LOGFILE="scripts/compile_log.txt"
 > "$LOGFILE"
 
@@ -26,13 +27,13 @@ for texfile in $(find . -name "*.tex" -not -path "./scripts/*" | sort); do
         SUCCESS=$((SUCCESS + 1))
     else
         FAIL=$((FAIL + 1))
-        echo "FAIL: $texfile ($compiler)" >> "/Volumes/MacShare/My_Tikz_Figures/$LOGFILE"
+        echo "FAIL: $texfile ($compiler)" >> "$REPO_ROOT/$LOGFILE"
     fi
     
     # Clean build artifacts
     rm -f *.aux *.log *.synctex.gz *.fdb_latexmk *.fls *.out 2>/dev/null
     
-    cd /Volumes/MacShare/My_Tikz_Figures
+    cd "$REPO_ROOT"
 done
 
 echo "" >> "$LOGFILE"
