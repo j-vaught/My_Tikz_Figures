@@ -20,13 +20,34 @@ A collection of 520 standalone TikZ and PGFPlots figures extracted from various 
 | `data/` | --- | CSV files referenced by data-driven plots |
 | `scripts/` | --- | Extraction and compilation utilities |
 
+## Requirements
+
+- A TeX distribution with `pdflatex` (e.g., [TeX Live](https://tug.org/texlive/) or [MacTeX](https://tug.org/mactex/))
+- Core LaTeX packages (included with most full TeX distributions):
+  - `tikz` and TikZ libraries (arrows.meta, calc, positioning, decorations, patterns, etc.)
+  - `pgfplots` (v1.18+) for data-driven plots
+  - `standalone` document class
+- A few figures require `xelatex` instead of `pdflatex` (marked with `% Requires: xelatex` in the file header)
+
 ## Compilation
 
-All files compile with:
+Each file is self-contained and compiles independently:
 
 ```bash
 pdflatex <filename>.tex
 ```
+
+To compile all figures at once:
+
+```bash
+bash scripts/compile_all.sh
+```
+
+Results are logged to `scripts/compile_log.txt`.
+
+## License
+
+MIT
 
 ## Author
 

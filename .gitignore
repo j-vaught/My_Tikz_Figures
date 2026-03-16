@@ -16,6 +16,7 @@
 
 # OS files
 .DS_Store
+._*
 __pycache__/
 *.pyc
 
